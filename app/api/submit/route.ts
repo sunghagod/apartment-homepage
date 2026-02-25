@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { submitToGoogleSheets, type ReservationData } from "@/lib/google-sheets";
 
+export const runtime = "edge";
+
 export async function POST(request: Request) {
   try {
     const body: ReservationData = await request.json();

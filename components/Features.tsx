@@ -4,78 +4,40 @@ import { useEffect, useRef } from "react";
 
 const features = [
   {
-    icon: (
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        stroke="var(--color-accent)"
-        strokeWidth="1.5"
-      >
-        <path d="M24 4L4 18v26h16V30h8v14h16V18L24 4z" />
-        <path d="M18 30h12v14H18z" />
-      </svg>
-    ),
+    num: "01",
     title: "프리미엄 입지",
+    subtitle: "PRIME LOCATION",
     description:
       "도심 핵심 지역에 위치하여 생활 인프라와 교통 편의성을 모두 누릴 수 있는 최적의 입지 조건을 갖추었습니다.",
+    image:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
   },
   {
-    icon: (
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        stroke="var(--color-accent)"
-        strokeWidth="1.5"
-      >
-        <rect x="6" y="6" width="36" height="36" rx="2" />
-        <path d="M6 18h36M18 6v36" />
-      </svg>
-    ),
+    num: "02",
     title: "혁신 설계",
+    subtitle: "INNOVATIVE DESIGN",
     description:
       "입주민의 라이프스타일을 세심하게 반영한 평면 설계로, 공간 효율성과 개방감을 극대화한 주거 공간을 제공합니다.",
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
   },
   {
-    icon: (
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        stroke="var(--color-accent)"
-        strokeWidth="1.5"
-      >
-        <circle cx="24" cy="24" r="20" />
-        <path d="M16 24c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8" />
-        <path d="M24 16v8l4 4" />
-      </svg>
-    ),
+    num: "03",
     title: "커뮤니티 시설",
+    subtitle: "COMMUNITY",
     description:
       "피트니스 센터, 독서실, 키즈카페 등 다양한 커뮤니티 시설을 갖춰 입주민의 삶의 질을 한 단계 높여드립니다.",
+    image:
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80",
   },
   {
-    icon: (
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        stroke="var(--color-accent)"
-        strokeWidth="1.5"
-      >
-        <path d="M4 38h40M8 38V20l16-12 16 12v18" />
-        <path d="M14 38v-8h8v8M26 38v-8h8v8" />
-        <circle cx="24" cy="20" r="3" />
-      </svg>
-    ),
+    num: "04",
     title: "교통 편의",
+    subtitle: "TRANSPORTATION",
     description:
       "지하철역 도보 5분 거리, 주요 간선도로와 인접하여 서울 전역으로의 빠른 이동이 가능한 탁월한 교통 환경입니다.",
+    image:
+      "https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=800&q=80",
   },
 ];
 
@@ -105,12 +67,12 @@ export default function Features() {
         gsap.from(sectionRef.current.querySelectorAll(".feature-card"), {
           scrollTrigger: {
             trigger: sectionRef.current.querySelector(".feature-grid"),
-            start: "top 80%",
+            start: "top 85%",
           },
           opacity: 0,
-          y: 40,
-          duration: 0.6,
-          stagger: 0.15,
+          y: 50,
+          duration: 0.7,
+          stagger: 0.2,
         });
       }
     };
@@ -122,38 +84,67 @@ export default function Features() {
     <section
       id="features"
       ref={sectionRef}
-      className="py-[100px] bg-[var(--gray-50)]"
+      className="relative py-[120px] bg-gray-900 overflow-hidden"
     >
-      <div className="max-w-[1320px] mx-auto px-6">
+      {/* Background pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.03) 55%, transparent 55%)",
+            backgroundSize: "30px 30px",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-[1320px] mx-auto px-6">
         {/* Section Header */}
-        <div className="section-header text-center mb-16">
-          <span className="text-sm font-light text-[var(--color-accent)] tracking-[2px] uppercase mb-4 block">
+        <div className="section-header text-center mb-20">
+          <span className="text-sm font-light text-[var(--theme-accent)] tracking-[3px] uppercase mb-4 block">
             ABOUT
           </span>
-          <h2 className="text-[28px] tablet:text-[36px] font-bold text-gray-900 tracking-[-1px] mb-4">
+          <h2 className="text-[32px] tablet:text-[42px] font-bold text-white tracking-[-1px] mb-5">
             단지 소개
           </h2>
-          <p className="text-base font-light text-gray-600 max-w-lg mx-auto leading-relaxed">
+          <div className="w-12 h-px bg-[var(--theme-accent)] mx-auto mb-5" />
+          <p className="text-base font-light text-gray-400 max-w-lg mx-auto leading-relaxed">
             프리미엄 라이프를 완성하는 핵심 가치를 소개합니다
           </p>
         </div>
 
-        {/* Feature Cards Grid */}
-        <div className="feature-grid grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-4 gap-6">
+        {/* Feature Cards Grid - 2x2 */}
+        <div className="feature-grid grid grid-cols-1 tablet:grid-cols-2 gap-4">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="feature-card border border-gray-300 bg-white p-8 transition-shadow duration-300 hover:shadow-card group"
+              className="feature-card group relative h-[320px] tablet:h-[380px] overflow-hidden cursor-default"
             >
-              <div className="mb-6 transition-transform duration-300 group-hover:-translate-y-1">
-                {feature.icon}
+              {/* Background image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                style={{ backgroundImage: `url('${feature.image}')` }}
+              />
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-black/60 transition-colors duration-500 group-hover:bg-black/50" />
+
+              {/* Content */}
+              <div className="relative z-10 h-full flex flex-col justify-end p-8 tablet:p-10">
+                {/* Number */}
+                <span className="absolute top-8 right-8 tablet:top-10 tablet:right-10 text-[56px] tablet:text-[72px] font-bold text-white/[0.07] leading-none select-none">
+                  {feature.num}
+                </span>
+
+                <span className="text-xs font-light text-[var(--theme-accent)] tracking-[2px] uppercase mb-2">
+                  {feature.subtitle}
+                </span>
+                <h3 className="text-[22px] tablet:text-[26px] font-bold text-white tracking-[-0.5px] mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-sm font-light text-gray-300 leading-relaxed max-w-md">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 tracking-[-0.5px] mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-base font-light text-gray-600 leading-relaxed">
-                {feature.description}
-              </p>
             </div>
           ))}
         </div>

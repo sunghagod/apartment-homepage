@@ -1,0 +1,7 @@
+name = "apartment-homepage"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# 환경 변수는 Cloudflare 대시보드에서 설정하세요
+# GOOGLE_SCRIPT_URL = "https://script.google.com/..."

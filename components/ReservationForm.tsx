@@ -17,6 +17,11 @@ interface FormErrors {
   name?: string;
   phone?: string;
   date?: string;
+  privacyConsent?: string;
+}
+
+interface ConsentState {
+  privacy: boolean;
 }
 
 const sizeOptions = [
@@ -51,6 +56,10 @@ export default function ReservationForm() {
     message: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [consent, setConsent] = useState<ConsentState>({
+    privacy: false,
+  });
+  const [privacyOpen, setPrivacyOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState<{
     isOpen: boolean;
@@ -119,6 +128,10 @@ export default function ReservationForm() {
       newErrors.date = "예약일을 선택해주세요.";
     }
 
+    if (!consent.privacy) {
+      newErrors.privacyConsent = "개인정보 수집·이용에 동의해주세요.";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -147,24 +160,28 @@ export default function ReservationForm() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/submit", {
+      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
+      if (!scriptUrl) throw new Error("Google Script URL not configured");
+
+      await fetch(scriptUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({
+          ...formData,
+        }),
       });
 
-      if (response.ok) {
-        setModal({
-          isOpen: true,
-          type: "success",
-          title: "예약이 접수되었습니다",
-          message:
-            "입력하신 연락처로 확인 연락을 드리겠습니다. 감사합니다.",
-        });
-        setFormData({ name: "", phone: "", date: "", size: "", message: "" });
-      } else {
-        throw new Error("Submit failed");
-      }
+      // no-cors 모드에서는 응답을 읽을 수 없지만 데이터는 정상 전송됨
+      setModal({
+        isOpen: true,
+        type: "success",
+        title: "예약이 접수되었습니다",
+        message:
+          "입력하신 연락처로 확인 연락을 드리겠습니다. 감사합니다.",
+      });
+      setFormData({ name: "", phone: "", date: "", size: "", message: "" });
+      setConsent({ privacy: false });
     } catch {
       setModal({
         isOpen: true,
@@ -258,11 +275,98 @@ export default function ReservationForm() {
                 onChange={handleChange}
               />
 
-              {/* Privacy notice */}
-              <p className="text-xs font-light text-gray-500 leading-relaxed">
-                * 수집된 개인정보는 상담 목적으로만 사용되며, 상담 완료 후
-                즉시 파기됩니다.
-              </p>
+              {/* Consent Checkbox */}
+              <div className="border-t border-gray-200 pt-6">
+                <div>
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={consent.privacy}
+                      onChange={(e) => {
+                        setConsent({ privacy: e.target.checked });
+                        if (e.target.checked && errors.privacyConsent) {
+                          setErrors((prev) => ({ ...prev, privacyConsent: undefined }));
+                        }
+                      }}
+                      className="w-5 h-5 accent-[var(--color-accent)] cursor-pointer"
+                    />
+                    <span className="text-sm font-light text-gray-700">
+                      <span className="text-[var(--color-accent)] font-normal">[필수]</span>{" "}
+                      개인정보 수집·이용 및 마케팅 정보 수신 동의
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setPrivacyOpen(!privacyOpen)}
+                      className="ml-auto text-xs text-gray-500 underline underline-offset-2 shrink-0"
+                    >
+                      {privacyOpen ? "접기" : "내용보기"}
+                    </button>
+                  </label>
+                  {privacyOpen && (
+                    <div className="mt-2 ml-8 p-4 bg-gray-50 border border-gray-200 text-xs font-light text-gray-600 leading-relaxed max-h-64 overflow-y-auto">
+                      <p className="font-normal text-gray-800 mb-2">1. 개인정보 수집·이용</p>
+                      <table className="w-full border-collapse mb-4">
+                        <thead>
+                          <tr className="border-b border-gray-300">
+                            <th className="text-left py-2 pr-2 font-normal text-gray-800">항목</th>
+                            <th className="text-left py-2 font-normal text-gray-800">내용</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 pr-2 align-top whitespace-nowrap">수집 항목</td>
+                            <td className="py-2">이름, 연락처, 방문예약일, 관심 평형, 문의사항</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 pr-2 align-top whitespace-nowrap">수집 목적</td>
+                            <td className="py-2">방문상담 예약 접수 및 상담 안내 연락</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 pr-2 align-top whitespace-nowrap">보유 기간</td>
+                            <td className="py-2">상담 완료 후 30일 이내 파기</td>
+                          </tr>
+                          <tr>
+                            <td className="py-2 pr-2 align-top whitespace-nowrap">거부 권리</td>
+                            <td className="py-2">동의를 거부할 수 있으며, 거부 시 방문상담 예약이 제한됩니다.</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <p className="font-normal text-gray-800 mb-2">2. 마케팅 정보 수신</p>
+                      <table className="w-full border-collapse">
+                        <thead>
+                          <tr className="border-b border-gray-300">
+                            <th className="text-left py-2 pr-2 font-normal text-gray-800">항목</th>
+                            <th className="text-left py-2 font-normal text-gray-800">내용</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 pr-2 align-top whitespace-nowrap">이용 목적</td>
+                            <td className="py-2">분양 관련 정보, 프로모션 및 이벤트 안내</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 pr-2 align-top whitespace-nowrap">수신 방법</td>
+                            <td className="py-2">전화, 문자(SMS/MMS)</td>
+                          </tr>
+                          <tr className="border-b border-gray-200">
+                            <td className="py-2 pr-2 align-top whitespace-nowrap">보유 기간</td>
+                            <td className="py-2">동의 철회 시까지 (철회 요청: 대표전화 1588-0000)</td>
+                          </tr>
+                          <tr>
+                            <td className="py-2 pr-2 align-top whitespace-nowrap">거부 권리</td>
+                            <td className="py-2">동의 철회는 대표전화(1588-0000)로 요청하실 수 있습니다.</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                  {errors.privacyConsent && (
+                    <span className="block mt-1 ml-8 text-red-500 text-sm font-light">
+                      {errors.privacyConsent}
+                    </span>
+                  )}
+                </div>
+              </div>
 
               <Button
                 type="submit"

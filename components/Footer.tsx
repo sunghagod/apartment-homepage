@@ -43,13 +43,13 @@ export default function Footer() {
             </h4>
             <nav className="space-y-2 text-sm">
               <a
-                href="#"
+                href="/privacy"
                 className="block text-gray-500 transition-colors duration-300 hover:text-white"
               >
                 개인정보처리방침
               </a>
               <a
-                href="#"
+                href="/terms"
                 className="block text-gray-500 transition-colors duration-300 hover:text-white"
               >
                 이용약관
