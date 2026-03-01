@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFileSync, writeFileSync } from "fs";
+import { revalidatePath } from "next/cache";
 import path from "path";
 
 function checkAuth(req: NextRequest) {
@@ -21,5 +22,6 @@ export async function PUT(req: NextRequest) {
 
   const body = await req.json();
   writeFileSync(contentPath, JSON.stringify(body, null, 2));
+  revalidatePath("/");
   return NextResponse.json({ ok: true });
 }

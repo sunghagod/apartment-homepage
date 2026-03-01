@@ -1,16 +1,32 @@
 {
   "site": {
-    "name": "BRAND APARTMENT"
+    "name": "진월 더리브 라포레"
   },
   "hero": {
-    "imageUrl": "",
-    "eyebrow": "Premium Residence",
-    "lines": ["프리미엄", "라이프의", "새로운 시작"],
+    "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772351036/apartment/hero.png",
+    "eyebrow": "제석산을 품은 광주 첫 주거명작 더리브",
+    "lines": [
+      "프리미엄",
+      "라이프의",
+      "새로운 시작"
+    ],
     "description": "도심 속 자연과 함께하는 품격 있는 주거 공간.\n당신의 라이프스타일에 맞춘 프리미엄 설계.",
     "stats": [
-      { "val": "59–84", "unit": "㎡", "label": "전용 평형" },
-      { "val": "3", "unit": "개 타입", "label": "평면 구성" },
-      { "val": "2026", "unit": "년", "label": "입주 예정" }
+      {
+        "val": "84-126",
+        "unit": "㎡",
+        "label": "전용 평형"
+      },
+      {
+        "val": "6",
+        "unit": "개 타입",
+        "label": "평면 구성"
+      },
+      {
+        "val": "2026",
+        "unit": "년",
+        "label": "입주 예정"
+      }
     ]
   },
   "features": [
@@ -47,12 +63,20 @@
     "location": {
       "imageUrl": "",
       "description": "지하철역 도보 5분, 주요 간선도로 인접. 서울 전역으로의 빠른 접근이 가능한 탁월한 입지입니다.",
-      "badges": ["지하철 도보 5분", "버스 정류장 1분", "IC 10분"]
+      "badges": [
+        "지하철 도보 5분",
+        "버스 정류장 1분",
+        "IC 10분"
+      ]
     },
     "layout": {
       "imageUrl": "",
       "description": "남향 위주의 동 배치로 채광과 통풍을 극대화하였으며, 단지 내 녹지 공간을 풍부하게 확보하였습니다.",
-      "badges": ["남향 위주 배치", "중앙 녹지 광장", "지하 주차 연결"]
+      "badges": [
+        "남향 위주 배치",
+        "중앙 녹지 광장",
+        "지하 주차 연결"
+      ]
     }
   }
 }

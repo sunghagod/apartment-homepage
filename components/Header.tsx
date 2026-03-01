@@ -2,31 +2,31 @@
 
 import { useState, useEffect } from "react";
 
-export default function Header() {
+export default function Header({ siteName }: { siteName?: string }) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setMobileMenuOpen(false);
-    }
+  const goto = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMobileOpen(false);
   };
+
+  const navItems = [
+    { label: "단지소개", id: "features" },
+    { label: "평형안내", id: "floorplan" },
+  ];
 
   return (
     <header
-      className={`fixed top-0 w-full h-20 z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full h-20 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white shadow-sm"
+          ? "bg-[var(--brand-bg)]/90 backdrop-blur-md border-b border-white/[0.07]"
           : "bg-transparent"
       }`}
     >
@@ -34,78 +34,78 @@ export default function Header() {
         {/* Logo */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className={`text-2xl font-bold tracking-[-1px] transition-colors duration-300 ${
-            scrolled ? "text-gray-900" : "text-white"
-          }`}
+          className="flex items-center gap-1"
         >
-          BRAND APARTMENT
+          <span
+            className="text-[17px] font-bold text-white tracking-[-0.5px]"
+            style={{ fontFamily: "var(--font-secondary)" }}
+          >
+            {siteName || "BRAND APARTMENT"}
+          </span>
         </button>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden tablet:flex items-center gap-10">
-          {[
-            { label: "단지소개", id: "features" },
-            { label: "평형안내", id: "floorplan" },
-            { label: "상담예약", id: "reservation" },
-          ].map((item) => (
+        {/* Desktop nav */}
+        <nav className="hidden tablet:flex items-center gap-8">
+          {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`text-base font-light tracking-[-0.5px] transition-colors duration-300 hover:opacity-70 ${
-                scrolled ? "text-gray-800" : "text-white"
-              }`}
+              onClick={() => goto(item.id)}
+              className="text-sm font-light text-white/65 tracking-[-0.3px] hover:text-white transition-colors duration-300"
             >
               {item.label}
             </button>
           ))}
           <button
-            onClick={() => scrollToSection("reservation")}
-            className="bg-[var(--color-accent)] text-white text-sm font-light px-5 py-2.5 tracking-[-0.5px] transition-opacity duration-300 hover:opacity-85"
+            onClick={() => goto("reservation")}
+            className="text-[13px] font-medium px-5 py-2.5 border border-[var(--brand-gold)] text-[var(--brand-gold)] tracking-[0.3px] uppercase hover:bg-[var(--brand-gold)] hover:text-[var(--brand-bg)] transition-all duration-300"
+            style={{ fontFamily: "var(--font-secondary)" }}
           >
             예약하기
           </button>
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Hamburger */}
         <button
-          className="tablet:hidden flex flex-col gap-1.5"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="tablet:hidden flex flex-col gap-[5px] p-1"
+          onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="메뉴 열기"
         >
-          <span
-            className={`block w-6 h-0.5 transition-all duration-300 ${
-              scrolled ? "bg-gray-800" : "bg-white"
-            } ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
-          />
-          <span
-            className={`block w-6 h-0.5 transition-all duration-300 ${
-              scrolled ? "bg-gray-800" : "bg-white"
-            } ${mobileMenuOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block w-6 h-0.5 transition-all duration-300 ${
-              scrolled ? "bg-gray-800" : "bg-white"
-            } ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
-          />
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className={`block w-6 h-[1.5px] bg-white transition-all duration-300 ${
+                mobileOpen
+                  ? i === 0
+                    ? "rotate-45 translate-y-[6.5px]"
+                    : i === 1
+                    ? "opacity-0"
+                    : "-rotate-45 -translate-y-[6.5px]"
+                  : ""
+              }`}
+            />
+          ))}
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="tablet:hidden bg-white shadow-md">
-          <nav className="flex flex-col px-6 py-4">
-            {[
-              { label: "단지소개", id: "features" },
-              { label: "상담예약", id: "reservation" },
-            ].map((item) => (
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="tablet:hidden bg-[var(--brand-surface)] border-t border-white/[0.06]">
+          <nav className="flex flex-col px-6 py-2">
+            {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-left text-base font-light text-gray-800 py-3 border-b border-gray-200"
+                onClick={() => goto(item.id)}
+                className="text-left text-base font-light text-white/75 py-4 border-b border-white/[0.06] hover:text-white transition-colors"
               >
                 {item.label}
               </button>
             ))}
+            <button
+              onClick={() => goto("reservation")}
+              className="text-left text-base font-medium text-[var(--brand-gold)] py-4 hover:text-[var(--brand-gold-lt)] transition-colors"
+            >
+              상담 예약하기
+            </button>
           </nav>
         </div>
       )}

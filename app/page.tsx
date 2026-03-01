@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header siteName={content?.site?.name} />
       <main>
         <Hero content={content?.hero} />
         <Features features={content?.features} />
@@ -33,7 +33,7 @@ export default function Home() {
         <SiteMap sitemap={content?.sitemap} />
         <ReservationForm />
       </main>
-      <Footer />
+      <Footer siteName={content?.site?.name} />
       <FloatingCTA />
     </>
   );

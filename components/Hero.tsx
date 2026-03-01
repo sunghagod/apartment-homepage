@@ -82,7 +82,7 @@ export default function Hero({ content }: { content?: HeroContent }) {
         <div className="flex items-center gap-5 mb-6 desktop:mb-10">
           <div className="hero-rule h-px w-14 bg-[var(--brand-gold)]" />
           <span
-            className="hero-eyebrow text-[11px] font-medium text-[var(--brand-gold)] tracking-[4px] uppercase"
+            className="hero-eyebrow text-[15px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase"
             style={{ fontFamily: "var(--font-secondary)" }}
           >
             {eyebrow}
