@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CopyrightGuard from "@/components/CopyrightGuard";
 
 export const metadata: Metadata = {
   title: "프리미엄 라이프의 시작 | 아파트 브랜드 상담 예약",
@@ -26,7 +27,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <CopyrightGuard />
+        {children}
+      </body>
     </html>
   );
 }

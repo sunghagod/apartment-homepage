@@ -98,14 +98,17 @@ export default function Footer({ siteName }: { siteName?: string }) {
 
       {/* Copyright */}
       <div className="border-t border-white/[0.05] py-6 px-6">
-        <div className="max-w-[1320px] mx-auto flex flex-col tablet:flex-row justify-between items-start tablet:items-center gap-2">
-          <p className="text-[12px] font-light text-[var(--n-400)]">
-            &copy; {new Date().getFullYear()} {siteName || "Brand Apartment"}. All rights
-            reserved.
-          </p>
-          <p className="text-[12px] font-light text-[var(--n-500)]">
-            본 사이트의 내용은 분양 관련 참고용이며, 실제 내용과 차이가 있을 수
-            있습니다.
+        <div className="max-w-[1320px] mx-auto flex flex-col gap-2">
+          <div className="flex flex-col tablet:flex-row justify-between items-start tablet:items-center gap-2">
+            <p className="text-[12px] font-light text-[var(--n-400)]">
+              &copy; {new Date().getFullYear()} {siteName || "Brand Apartment"}. All rights reserved.
+            </p>
+            <p className="text-[12px] font-light text-[var(--n-500)]">
+              본 사이트의 내용은 분양 관련 참고용이며, 실제 내용과 차이가 있을 수 있습니다.
+            </p>
+          </div>
+          <p className="text-[11px] font-light text-[var(--n-600)]">
+            본 사이트의 모든 콘텐츠, 디자인 및 코드는 저작권법의 보호를 받습니다. 무단 복제, 배포, 수정을 금지합니다.
           </p>
         </div>
       </div>
