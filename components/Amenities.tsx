@@ -138,23 +138,29 @@ export default function Amenities() {
       gsap.registerPlugin(ScrollTrigger);
       if (!sectionRef.current) return;
 
-      gsap.from(sectionRef.current.querySelector(".amen-header"), {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
+      const header = sectionRef.current.querySelector(".amen-header") as HTMLElement;
+      const cards = sectionRef.current.querySelectorAll(".amen-card");
+      const grid = sectionRef.current.querySelector(".amen-grid");
+
+      gsap.set(header, { opacity: 0, y: 30 });
+      gsap.set(cards, { opacity: 0, y: 28 });
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 90%",
+        once: true,
+        onEnter: () => gsap.to(header, { opacity: 1, y: 0, duration: 0.8 }),
       });
-      gsap.from(sectionRef.current.querySelectorAll(".amen-card"), {
-        scrollTrigger: {
-          trigger: sectionRef.current.querySelector(".amen-grid"),
-          start: "top 80%",
-        },
-        opacity: 0,
-        y: 28,
-        duration: 0.55,
-        stagger: 0.09,
-        ease: "power2.out",
+
+      ScrollTrigger.create({
+        trigger: grid,
+        start: "top 95%",
+        once: true,
+        onEnter: () =>
+          gsap.to(cards, { opacity: 1, y: 0, duration: 0.55, stagger: 0.09, ease: "power2.out" }),
       });
+
+      ScrollTrigger.refresh();
     };
     init();
   }, []);
