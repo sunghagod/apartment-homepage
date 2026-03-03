@@ -9,6 +9,7 @@ const AMENITIES = [
     subtitle: "GOLF LOUNGE",
     desc: "스크린 골프 2타석 포함 전용 실내 연습 공간",
     badge: "스크린 포함",
+    image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=800&q=80",
   },
   {
     id: "fitness",
@@ -16,6 +17,7 @@ const AMENITIES = [
     subtitle: "FITNESS",
     desc: "최신 운동기기와 GX룸, 전용 샤워 시설 완비",
     badge: "GX룸 포함",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
   },
   {
     id: "lounge",
@@ -23,6 +25,7 @@ const AMENITIES = [
     subtitle: "LOUNGE",
     desc: "입주민 전용 다목적 공용 공간, 591㎡ 규모",
     badge: "총 591㎡",
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
   },
   {
     id: "park",
@@ -30,6 +33,7 @@ const AMENITIES = [
     subtitle: "GREEN PLAZA",
     desc: "제석산 조망과 연결된 단지 중심 공원 및 산책로",
     badge: "제석산 조망",
+    image: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&q=80",
   },
   {
     id: "parking",
@@ -37,6 +41,7 @@ const AMENITIES = [
     subtitle: "PARKING",
     desc: "전 세대 지하 직접 연결, 우천 시에도 편리한 동선",
     badge: "세대당 1.2대",
+    image: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=800&q=80",
   },
   {
     id: "kids",
@@ -44,6 +49,7 @@ const AMENITIES = [
     subtitle: "KIDS ZONE",
     desc: "안전 인증 시설, 어린이 전용 안심 놀이 공간",
     badge: "안심 설계",
+    image: "https://images.unsplash.com/photo-1575783970733-1aaedde1db74?w=800&q=80",
   },
 ];
 
@@ -207,35 +213,47 @@ export default function Amenities() {
           {AMENITIES.map((item) => (
             <div
               key={item.id}
-              className="amen-card bg-white border border-[var(--n-100)] p-5 tablet:p-7 hover:border-[var(--brand-gold)]/40 hover:shadow-sm transition-all duration-300"
+              className="amen-card relative min-h-[260px] overflow-hidden group"
             >
-              {/* Icon */}
-              <div className="text-[var(--brand-gold)] mb-5">
-                <AmenityIcon id={item.id} />
+              {/* Background image */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                style={{ backgroundImage: `url(${item.image})` }}
+              />
+
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/50 to-black/25" />
+
+              {/* Content */}
+              <div className="relative z-10 flex flex-col h-full min-h-[260px] p-5 tablet:p-7">
+                {/* Icon */}
+                <div className="text-white mb-5">
+                  <AmenityIcon id={item.id} />
+                </div>
+
+                {/* Subtitle */}
+                <p
+                  className="text-[10px] tablet:text-[11px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-2"
+                  style={{ fontFamily: "var(--font-secondary)" }}
+                >
+                  {item.subtitle}
+                </p>
+
+                {/* Title */}
+                <h3 className="text-[18px] tablet:text-[21px] font-bold text-white tracking-[-0.5px] mb-2 tablet:mb-3">
+                  {item.title}
+                </h3>
+
+                {/* Description — hide on small mobile */}
+                <p className="hidden tablet:block text-[14px] font-normal text-white/80 leading-relaxed mb-5">
+                  {item.desc}
+                </p>
+
+                {/* Badge */}
+                <span className="mt-auto inline-block text-[12px] font-light text-white border border-white/50 px-3 py-1 self-start">
+                  {item.badge}
+                </span>
               </div>
-
-              {/* Subtitle */}
-              <p
-                className="text-[9px] tablet:text-[10px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-2"
-                style={{ fontFamily: "var(--font-secondary)" }}
-              >
-                {item.subtitle}
-              </p>
-
-              {/* Title */}
-              <h3 className="text-[16px] tablet:text-[19px] font-bold text-[var(--n-900)] tracking-[-0.5px] mb-2 tablet:mb-3">
-                {item.title}
-              </h3>
-
-              {/* Description — hide on small mobile */}
-              <p className="hidden tablet:block text-[13px] font-normal text-[var(--n-600)] leading-relaxed mb-5">
-                {item.desc}
-              </p>
-
-              {/* Badge */}
-              <span className="inline-block text-[11px] font-light text-[var(--brand-gold)] border border-[var(--brand-gold)]/45 px-3 py-1">
-                {item.badge}
-              </span>
             </div>
           ))}
         </div>
@@ -243,7 +261,7 @@ export default function Amenities() {
         {/* Footer row */}
         <div className="mt-10 desktop:mt-14 pt-8 border-t border-[var(--n-200)] flex flex-col tablet:flex-row items-start tablet:items-center justify-between gap-5">
           <p className="text-[13px] font-normal text-[var(--n-600)] leading-relaxed max-w-md">
-            * 커뮤니티 시설 상세 내용 및 이용 안내는 입주 시 별도 공지됩니다.
+            * 이미지는 연출된 예시이며, 실제 현장 및 시설과는 차이가 있을 수 있습니다.
           </p>
           <button
             onClick={() =>

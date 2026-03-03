@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import ImageLightbox from "@/components/ui/ImageLightbox";
 
 const floorPlans = [
   {
@@ -85,6 +86,7 @@ const floorPlans = [
 
 export default function FloorPlan() {
   const [activeTab, setActiveTab] = useState("84A");
+  const [lightbox, setLightbox] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -122,6 +124,7 @@ export default function FloorPlan() {
   }, [activeTab]);
 
   return (
+    <>
     <section
       id="floorplan"
       ref={sectionRef}
@@ -172,7 +175,10 @@ export default function FloorPlan() {
         >
           {/* Floor Plan Image */}
           <div className="w-full desktop:w-3/5">
-            <div className="relative aspect-[4/3] bg-white border border-[var(--n-200)] overflow-hidden">
+            <div
+              className="relative aspect-[4/3] bg-white border border-[var(--n-200)] overflow-hidden group cursor-zoom-in"
+              onClick={() => setLightbox(true)}
+            >
               <img
                 src={active.imageUrl}
                 alt={`${active.name} 평면도`}
@@ -181,6 +187,17 @@ export default function FloorPlan() {
               {/* Type badge */}
               <div className="absolute top-4 left-4 bg-[var(--brand-gold)] text-[var(--brand-bg)] text-xs font-medium px-3 py-1.5 tracking-[-0.2px]">
                 {active.name}
+              </div>
+              {/* Zoom hint overlay */}
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <circle cx="12" cy="12" r="7.5" stroke="white" strokeWidth="2" />
+                    <line x1="18" y1="18" x2="25" y2="25" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                    <line x1="9" y1="12" x2="15" y2="12" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                    <line x1="12" y1="9" x2="12" y2="15" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
@@ -258,5 +275,14 @@ export default function FloorPlan() {
         </div>
       </div>
     </section>
+
+    {lightbox && (
+      <ImageLightbox
+        src={active.imageUrl}
+        alt={`${active.name} 평면도`}
+        onClose={() => setLightbox(false)}
+      />
+    )}
+  </>
   );
 }

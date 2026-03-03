@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import ImageLightbox from "@/components/ui/ImageLightbox";
 
 const DEFAULT_TABS = [
   {
@@ -34,6 +35,7 @@ interface SitemapContent {
 
 export default function SiteMap({ sitemap }: { sitemap?: SitemapContent }) {
   const [activeTab, setActiveTab] = useState("location");
+  const [lightbox, setLightbox] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   const tabs = sitemap
@@ -70,6 +72,7 @@ export default function SiteMap({ sitemap }: { sitemap?: SitemapContent }) {
   }, []);
 
   return (
+    <>
     <section
       id="sitemap"
       ref={sectionRef}
@@ -115,13 +118,29 @@ export default function SiteMap({ sitemap }: { sitemap?: SitemapContent }) {
           <div className="flex flex-col desktop:flex-row gap-8 items-start">
             {/* Map image / placeholder */}
             <div className="w-full desktop:w-3/5">
-              <div className="relative aspect-[16/10] bg-[var(--brand-surface)] border border-white/[0.08] overflow-hidden flex items-center justify-center">
+              <div
+                className={`relative aspect-[16/10] bg-[var(--brand-surface)] border border-white/[0.08] overflow-hidden flex items-center justify-center group${active.imageUrl ? " cursor-zoom-in" : ""}`}
+                onClick={() => active.imageUrl && setLightbox(true)}
+              >
                 {active.imageUrl ? (
-                  <img
-                    src={active.imageUrl}
-                    alt={active.subtitle}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+                  <>
+                    <img
+                      src={active.imageUrl}
+                      alt={active.subtitle}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    {/* Zoom hint overlay */}
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                          <circle cx="12" cy="12" r="7.5" stroke="white" strokeWidth="2" />
+                          <line x1="18" y1="18" x2="25" y2="25" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                          <line x1="9" y1="12" x2="15" y2="12" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                          <line x1="12" y1="9" x2="12" y2="15" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                        </svg>
+                      </div>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent" />
@@ -195,5 +214,14 @@ export default function SiteMap({ sitemap }: { sitemap?: SitemapContent }) {
         </div>
       </div>
     </section>
+
+    {lightbox && active.imageUrl && (
+      <ImageLightbox
+        src={active.imageUrl}
+        alt={active.subtitle}
+        onClose={() => setLightbox(false)}
+      />
+    )}
+    </>
   );
 }
