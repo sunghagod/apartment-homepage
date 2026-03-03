@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const DEFAULT_IMAGE =
   "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80";
@@ -68,10 +69,16 @@ export default function Hero({ content }: { content?: HeroContent }) {
       className="relative min-h-screen flex items-end overflow-hidden bg-[var(--brand-bg)]"
     >
       {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center scale-[1.03]"
-        style={{ backgroundImage: `url('${bgImage}')` }}
-      />
+      <div className="absolute inset-0 scale-[1.03]">
+        <Image
+          src={bgImage}
+          alt=""
+          fill
+          className="object-cover object-[55%_center]"
+          priority
+          unoptimized
+        />
+      </div>
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--brand-bg)] via-[var(--brand-bg)]/65 to-[var(--brand-bg)]/20" />
       <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-bg)]/80 via-[var(--brand-bg)]/30 to-transparent" />
