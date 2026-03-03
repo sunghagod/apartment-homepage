@@ -4,83 +4,120 @@ import { useState, useEffect, useRef } from "react";
 
 const floorPlans = [
   {
-    id: "59",
-    label: "59㎡",
-    name: "59A타입",
-    area: "전용 59.99㎡ / 공급 84.98㎡",
-    rooms: "방 3 / 욕실 2",
-    features: ["맞통풍 설계", "팬트리 수납", "안방 드레스룸"],
-    description:
-      "실용적인 공간 활용이 돋보이는 컴팩트 설계. 신혼부부 및 1~2인 가구에 최적화된 평면입니다.",
-  },
-  {
-    id: "74",
-    label: "74㎡",
-    name: "74A타입",
-    area: "전용 74.92㎡ / 공급 99.87㎡",
-    rooms: "방 3 / 욕실 2",
-    features: ["4Bay 판상형", "알파룸", "주방 팬트리"],
-    description:
-      "넓은 거실과 독립 공간을 갖춘 균형 잡힌 설계. 자녀가 있는 3~4인 가구에 적합합니다.",
-  },
-  {
-    id: "84",
-    label: "84㎡",
+    id: "84A",
+    label: "84㎡ A",
     name: "84A타입",
-    area: "전용 84.97㎡ / 공급 114.82㎡",
+    area: "전용 84.8566㎡ / 공급 115.8340㎡",
     rooms: "방 4 / 욕실 2",
-    features: ["4Bay 와이드형", "대형 드레스룸", "거실 확장형"],
+    features: ["4Bay 판상형", "대형 드레스룸", "팬트리 수납"],
     description:
-      "넉넉한 수납과 개방감 있는 거실이 특징인 프리미엄 설계. 쾌적한 주거를 원하는 가족에게 추천합니다.",
+      "127세대 공급. 4Bay 판상형 설계로 채광과 통풍을 극대화한 대표 평형. 넉넉한 드레스룸과 팬트리로 수납 걱정 없는 쾌적한 주거 공간입니다.",
+    imageUrl:
+      "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440059/apartment/floorplan-84A.png",
+    units: 127,
+  },
+  {
+    id: "84B",
+    label: "84㎡ B",
+    name: "84B타입",
+    area: "전용 84.9777㎡ / 공급 115.6917㎡",
+    rooms: "방 4 / 욕실 2",
+    features: ["최상층 특화", "알파룸", "거실 확장형"],
+    description:
+      "52세대 공급. 최상층 특화 설계가 적용된 프리미엄 타입. 알파룸과 거실 확장으로 공간 활용도를 극대화한 맞춤형 평면입니다.",
+    imageUrl:
+      "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440060/apartment/floorplan-84B.png",
+    units: 52,
+  },
+  {
+    id: "84C",
+    label: "84㎡ C",
+    name: "84C타입",
+    area: "전용 84.9703㎡ / 공급 116.1917㎡",
+    rooms: "방 4 / 욕실 2",
+    features: ["맞통풍 설계", "주방 팬트리", "드레스룸"],
+    description:
+      "43세대 공급. 맞통풍 설계로 사계절 내내 쾌적한 실내 환경. 실용적인 주방 팬트리와 안방 드레스룸이 갖춰진 생활 특화 타입입니다.",
+    imageUrl:
+      "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440062/apartment/floorplan-84C.png",
+    units: 43,
+  },
+  {
+    id: "84D",
+    label: "84㎡ D",
+    name: "84D타입",
+    area: "전용 84.9805㎡ / 공급 116.4486㎡",
+    rooms: "방 3 / 욕실 2",
+    features: ["와이드 거실", "오픈 주방", "복도 최소화"],
+    description:
+      "30세대 공급. 복도를 최소화한 개방감 있는 평면. 와이드 거실과 오픈형 주방으로 넓고 환한 생활 공간을 제공하는 혁신 타입입니다.",
+    imageUrl:
+      "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440064/apartment/floorplan-84D.png",
+    units: 30,
+  },
+  {
+    id: "115",
+    label: "115㎡",
+    name: "115타입",
+    area: "전용 115.9641㎡ / 공급 143.9770㎡",
+    rooms: "방 4 / 욕실 2",
+    features: ["8Bay 판상형", "초대형 드레스룸", "독립 서재"],
+    description:
+      "8세대 공급. 넓은 전용면적에 8Bay 판상형 구조를 적용한 프리미엄 중형 타입. 독립 서재와 초대형 드레스룸으로 품격 있는 라이프스타일을 실현합니다.",
+    imageUrl:
+      "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440065/apartment/floorplan-115.png",
+    units: 8,
+  },
+  {
+    id: "126",
+    label: "126㎡",
+    name: "126타입",
+    area: "전용 126.7672㎡ / 공급 153.6182㎡",
+    rooms: "방 4 / 욕실 2",
+    features: ["테라스 특화", "대형 팬트리", "WIC 드레스룸"],
+    description:
+      "40세대 공급. 단지 최대 평형. 테라스 특화 설계와 WIC 드레스룸이 적용된 최고급 타입으로, 넓은 면적과 풍부한 수납으로 최상의 주거 품격을 완성합니다.",
+    imageUrl:
+      "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440066/apartment/floorplan-126.png",
+    units: 40,
   },
 ];
 
 export default function FloorPlan() {
-  const [activeTab, setActiveTab] = useState("59");
+  const [activeTab, setActiveTab] = useState("84A");
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const active = floorPlans.find((p) => p.id === activeTab)!;
 
   useEffect(() => {
-    const initAnimation = async () => {
-      const gsapModule = await import("gsap");
-      const scrollTriggerModule = await import("gsap/ScrollTrigger");
-      const gsap = gsapModule.default;
-      const ScrollTrigger = scrollTriggerModule.default;
-
+    const init = async () => {
+      const { default: gsap } = await import("gsap");
+      const { default: ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
+      if (!sectionRef.current) return;
 
-      if (sectionRef.current) {
-        gsap.from(sectionRef.current.querySelector(".section-header"), {
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-          },
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-        });
-      }
+      gsap.from(sectionRef.current.querySelector(".section-header"), {
+        scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+      });
     };
-
-    initAnimation();
+    init();
   }, []);
 
   useEffect(() => {
     const animateContent = async () => {
-      const gsapModule = await import("gsap");
-      const gsap = gsapModule.default;
-
+      const { default: gsap } = await import("gsap");
       if (contentRef.current) {
         gsap.fromTo(
           contentRef.current,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }
         );
       }
     };
-
     animateContent();
   }, [activeTab]);
 
@@ -88,33 +125,40 @@ export default function FloorPlan() {
     <section
       id="floorplan"
       ref={sectionRef}
-      className="py-[100px] bg-white"
+      className="py-14 desktop:py-32 bg-[var(--brand-cream)] border-t border-[var(--n-200)]"
     >
       <div className="max-w-[1320px] mx-auto px-6">
         {/* Section Header */}
-        <div className="section-header text-center mb-16">
-          <span className="text-sm font-light text-[var(--color-accent)] tracking-[2px] uppercase mb-4 block">
-            UNIT PLAN
-          </span>
-          <h2 className="text-[28px] tablet:text-[36px] font-bold text-gray-900 tracking-[-1px] mb-4">
+        <div className="section-header mb-10 desktop:mb-14">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-px w-10 bg-[var(--brand-gold)]" />
+            <span
+              className="text-[11px] font-medium text-[var(--brand-gold)] tracking-[4px] uppercase"
+              style={{ fontFamily: "var(--font-secondary)" }}
+            >
+              Unit Plan
+            </span>
+          </div>
+          <h2 className="text-[34px] tablet:text-[48px] font-bold text-[var(--n-900)] tracking-[-2px] mb-4">
             평형 안내
           </h2>
-          <p className="text-base font-light text-gray-600 max-w-lg mx-auto leading-relaxed">
-            라이프스타일에 맞는 다양한 평형을 확인해보세요
+          <p className="text-[15px] font-normal text-[var(--n-700)] max-w-md leading-relaxed">
+            총 6개 타입 300세대 — 라이프스타일에 맞는 평형을 선택하세요
           </p>
         </div>
 
-        {/* Tabs */}
-        <div className="flex justify-center gap-0 mb-12 border-b border-gray-300">
+        {/* Tabs — pill style */}
+        <div className="flex flex-wrap gap-2 mb-10">
           {floorPlans.map((plan) => (
             <button
               key={plan.id}
               onClick={() => setActiveTab(plan.id)}
-              className={`px-8 tablet:px-12 py-4 text-[20px] tablet:text-[30px] font-normal tracking-[-0.5px] transition-all duration-200 border-b-[3px] -mb-px ${
+              className={`px-4 py-2 text-[13px] tablet:text-[15px] font-medium tracking-[-0.3px] rounded-full transition-all duration-200 ${
                 activeTab === plan.id
-                  ? "text-gray-800 font-medium border-gray-800"
-                  : "text-gray-500 border-transparent hover:text-gray-700"
+                  ? "bg-[var(--brand-gold)] text-[var(--brand-bg)]"
+                  : "bg-[var(--n-200)] text-[var(--n-500)] hover:bg-[var(--n-300)] hover:text-[var(--n-700)]"
               }`}
+              style={{ fontFamily: "var(--font-secondary)" }}
             >
               {plan.label}
             </button>
@@ -122,57 +166,20 @@ export default function FloorPlan() {
         </div>
 
         {/* Content */}
-        <div ref={contentRef} className="flex flex-col desktop:flex-row gap-10 items-start">
+        <div
+          ref={contentRef}
+          className="flex flex-col desktop:flex-row gap-10 items-start"
+        >
           {/* Floor Plan Image */}
           <div className="w-full desktop:w-3/5">
-            <div className="relative aspect-[4/3] bg-gray-50 border border-gray-300 flex items-center justify-center overflow-hidden">
-              {/* Placeholder floor plan SVG */}
-              <div className="text-center p-8">
-                <svg
-                  width="280"
-                  height="220"
-                  viewBox="0 0 280 220"
-                  fill="none"
-                  className="mx-auto mb-6"
-                >
-                  {/* Outer walls */}
-                  <rect
-                    x="10"
-                    y="10"
-                    width="260"
-                    height="200"
-                    stroke="#bfbfbf"
-                    strokeWidth="3"
-                    fill="white"
-                  />
-                  {/* Rooms */}
-                  <rect x="10" y="10" width="100" height="90" stroke="#dddddd" strokeWidth="1.5" fill="#f7f7f7" />
-                  <rect x="110" y="10" width="80" height="90" stroke="#dddddd" strokeWidth="1.5" fill="#f7f7f7" />
-                  <rect x="190" y="10" width="80" height="90" stroke="#dddddd" strokeWidth="1.5" fill="#f7f7f7" />
-                  <rect x="10" y="100" width="130" height="110" stroke="#dddddd" strokeWidth="1.5" fill="#f7f7f7" />
-                  <rect x="140" y="100" width="130" height="60" stroke="#dddddd" strokeWidth="1.5" fill="#f7f7f7" />
-                  <rect x="140" y="160" width="130" height="50" stroke="#dddddd" strokeWidth="1.5" fill="#f7f7f7" />
-                  {/* Room labels */}
-                  <text x="45" y="60" textAnchor="middle" fill="#999" fontSize="11" fontWeight="300">안방</text>
-                  <text x="150" y="60" textAnchor="middle" fill="#999" fontSize="11" fontWeight="300">침실2</text>
-                  <text x="230" y="60" textAnchor="middle" fill="#999" fontSize="11" fontWeight="300">침실3</text>
-                  <text x="75" y="160" textAnchor="middle" fill="#999" fontSize="11" fontWeight="300">거실</text>
-                  <text x="205" y="135" textAnchor="middle" fill="#999" fontSize="11" fontWeight="300">주방/식당</text>
-                  <text x="205" y="190" textAnchor="middle" fill="#999" fontSize="11" fontWeight="300">욕실</text>
-                  {/* Door indicators */}
-                  <path d="M60 100 Q60 85 75 85" stroke="#bfbfbf" strokeWidth="1" fill="none" />
-                  <path d="M150 100 Q150 85 165 85" stroke="#bfbfbf" strokeWidth="1" fill="none" />
-                </svg>
-                <p className="text-sm font-light text-gray-500 tracking-[-0.3px]">
-                  {active.name} 평면도
-                </p>
-                <p className="text-xs font-light text-gray-400 mt-1">
-                  * 실제 평면도 이미지로 교체 예정
-                </p>
-              </div>
-
+            <div className="relative aspect-[4/3] bg-white border border-[var(--n-200)] overflow-hidden">
+              <img
+                src={active.imageUrl}
+                alt={`${active.name} 평면도`}
+                className="w-full h-full object-contain"
+              />
               {/* Type badge */}
-              <div className="absolute top-4 left-4 bg-[var(--color-accent)] text-white text-xs font-normal px-3 py-1.5 tracking-[-0.3px]">
+              <div className="absolute top-4 left-4 bg-[var(--brand-gold)] text-[var(--brand-bg)] text-xs font-medium px-3 py-1.5 tracking-[-0.2px]">
                 {active.name}
               </div>
             </div>
@@ -180,35 +187,56 @@ export default function FloorPlan() {
 
           {/* Info Panel */}
           <div className="w-full desktop:w-2/5 desktop:pt-4">
-            <h3 className="text-[24px] tablet:text-[30px] font-bold text-gray-900 tracking-[-1px] mb-2">
+            <h3 className="text-[22px] tablet:text-[28px] font-bold text-[var(--n-900)] tracking-[-1px] mb-2">
               {active.name}
             </h3>
-            <p className="text-base font-light text-gray-600 mb-8 leading-relaxed">
+            <p className="text-[15px] font-normal text-[var(--n-700)] mb-8 leading-relaxed">
               {active.description}
             </p>
 
             {/* Specs */}
-            <div className="space-y-4 mb-8">
-              <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                <span className="text-base font-normal text-gray-800">면적</span>
-                <span className="text-base font-light text-gray-600">{active.area}</span>
+            <div className="space-y-0 mb-8">
+              <div className="flex justify-between items-center py-4 border-b border-[var(--n-200)]">
+                <span className="text-[15px] font-medium text-[var(--n-800)]">
+                  면적
+                </span>
+                <span className="text-[15px] font-normal text-[var(--n-700)]">
+                  {active.area}
+                </span>
               </div>
-              <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                <span className="text-base font-normal text-gray-800">구성</span>
-                <span className="text-base font-light text-gray-600">{active.rooms}</span>
+              <div className="flex justify-between items-center py-4 border-b border-[var(--n-200)]">
+                <span className="text-[15px] font-medium text-[var(--n-800)]">
+                  구성
+                </span>
+                <span className="text-[15px] font-normal text-[var(--n-700)]">
+                  {active.rooms}
+                </span>
+              </div>
+              <div className="flex justify-between items-center py-4 border-b border-[var(--n-200)]">
+                <span className="text-[15px] font-medium text-[var(--n-800)]">
+                  공급 세대
+                </span>
+                <span className="text-[15px] font-normal text-[var(--n-700)]">
+                  {active.units}세대
+                </span>
               </div>
             </div>
 
             {/* Features */}
-            <div className="mb-8">
-              <h4 className="text-base font-medium text-gray-800 mb-3">특장점</h4>
+            <div className="mb-10">
+              <h4
+                className="text-[13px] font-medium text-[var(--n-600)] tracking-[1px] uppercase mb-4"
+                style={{ fontFamily: "var(--font-secondary)" }}
+              >
+                특장점
+              </h4>
               <div className="flex flex-wrap gap-2">
-                {active.features.map((feature, i) => (
+                {active.features.map((feat, i) => (
                   <span
                     key={i}
-                    className="text-sm font-light text-[var(--color-accent)] border border-[var(--color-accent)] px-4 py-2 rounded-[40px]"
+                    className="text-[13px] font-light text-[var(--brand-gold)] border border-[var(--brand-gold)]/50 px-4 py-2"
                   >
-                    {feature}
+                    {feat}
                   </span>
                 ))}
               </div>
@@ -217,10 +245,12 @@ export default function FloorPlan() {
             {/* CTA */}
             <button
               onClick={() => {
-                const el = document.getElementById("reservation");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
+                document
+                  .getElementById("reservation")
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="w-full bg-[var(--color-accent)] text-white text-lg font-light py-4 tracking-[-0.5px] transition-opacity duration-300 hover:opacity-85"
+              className="w-full bg-[var(--brand-gold)] text-[var(--brand-bg)] text-[15px] font-semibold py-5 tracking-[0.3px] uppercase transition-all duration-300 hover:bg-[var(--brand-gold-lt)] active:scale-[0.98]"
+              style={{ fontFamily: "var(--font-secondary)" }}
             >
               이 평형 상담 예약하기
             </button>

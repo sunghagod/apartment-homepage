@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -80,9 +81,9 @@ export default function AdminLoginPage() {
         </form>
 
         <div className="mt-8 text-center">
-          <a href="/" className="text-[13px] text-white/30 hover:text-white/60 transition-colors">
+          <Link href="/" className="text-[13px] text-white/30 hover:text-white/60 transition-colors">
             ← 홈페이지로
-          </a>
+          </Link>
         </div>
       </div>
     </div>

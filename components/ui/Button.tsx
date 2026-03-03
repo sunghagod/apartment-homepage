@@ -16,15 +16,15 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center font-light text-lg tracking-[-0.5px] cursor-pointer transition-all duration-300 border-none";
+    "inline-flex items-center justify-center font-medium text-base tracking-[0.2px] cursor-pointer transition-all duration-300 border-none";
 
   const variants: Record<string, string> = {
     primary:
-      "bg-[var(--color-accent)] text-white px-8 py-3.5 hover:opacity-85",
+      "bg-[var(--brand-gold)] text-[var(--brand-bg)] px-8 py-3.5 hover:bg-[var(--brand-gold-lt)] active:scale-[0.98]",
     secondary:
-      "bg-transparent text-gray-600 border border-gray-300 px-8 py-3.5 hover:text-gray-800 hover:border-gray-800",
-    ghost: "bg-transparent text-gray-800 border-none px-0 py-2",
-    dark: "bg-gray-800 text-white px-6 py-3",
+      "bg-transparent text-[var(--n-700)] border border-[var(--n-300)] px-8 py-3.5 hover:text-[var(--n-900)] hover:border-[var(--n-700)]",
+    ghost: "bg-transparent text-[var(--n-800)] border-none px-0 py-2",
+    dark: "bg-[var(--brand-bg)] text-white px-6 py-3 hover:bg-[var(--brand-surface)]",
   };
 
   return (
@@ -33,6 +33,7 @@ export default function Button({
         disabled || loading ? "opacity-50 cursor-not-allowed" : ""
       } ${className}`}
       disabled={disabled || loading}
+      style={{ fontFamily: "var(--font-secondary)" }}
       {...props}
     >
       {loading ? (

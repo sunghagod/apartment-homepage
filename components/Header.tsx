@@ -19,7 +19,9 @@ export default function Header({ siteName }: { siteName?: string }) {
 
   const navItems = [
     { label: "단지소개", id: "features" },
-    { label: "평형안내", id: "floorplan" },
+    { label: "입지안내", id: "location" },
+    { label: "커뮤니티", id: "amenities" },
+{ label: "평형안내", id: "floorplan" },
   ];
 
   return (
@@ -50,7 +52,7 @@ export default function Header({ siteName }: { siteName?: string }) {
             <button
               key={item.id}
               onClick={() => goto(item.id)}
-              className="text-sm font-light text-white/65 tracking-[-0.3px] hover:text-white transition-colors duration-300"
+              className="text-sm font-normal text-white/75 tracking-[0px] hover:text-white transition-colors duration-300"
             >
               {item.label}
             </button>

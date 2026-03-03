@@ -3,14 +3,14 @@
     "name": "진월 더리브 라포레"
   },
   "hero": {
-    "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772351036/apartment/hero.png",
+    "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440772/apartment/hero.png",
     "eyebrow": "제석산을 품은 광주 첫 주거명작 더리브",
     "lines": [
-      "프리미엄",
-      "라이프의",
-      "새로운 시작"
+      "진월을",
+      "담다",
+      "제석산을 품다"
     ],
-    "description": "도심 속 자연과 함께하는 품격 있는 주거 공간.\n당신의 라이프스타일에 맞춘 프리미엄 설계.",
+    "description": "진월·봉선지웰 생활권과 풍성을 누리는\n한 끝을 담은 프리미엄 아파트의 시작",
     "stats": [
       {
         "val": "84-126",
@@ -18,9 +18,9 @@
         "label": "전용 평형"
       },
       {
-        "val": "6",
-        "unit": "개 타입",
-        "label": "평면 구성"
+        "val": "300",
+        "unit": "세대",
+        "label": "총 세대수"
       },
       {
         "val": "2026",
@@ -32,46 +32,46 @@
   "features": [
     {
       "id": "01",
-      "imageUrl": "",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440039/apartment/feature-01.png",
       "title": "프리미엄 입지",
       "subtitle": "PRIME LOCATION",
-      "description": "도심 핵심 지역에 위치하여 생활 인프라와 교통 편의성을 모두 누릴 수 있는 최적의 입지 조건을 갖추었습니다."
+      "description": "광주 진월동, 단지 바로 앞 지하철 2호선 예정. 서울대로·제2순환도로 인접으로 광주남구 교통 중심. 나주·화순까지 직접 연결되는 광역 교통 요충지입니다."
     },
     {
       "id": "02",
-      "imageUrl": "",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440036/apartment/feature-02.png",
       "title": "혁신 설계",
       "subtitle": "INNOVATIVE DESIGN",
-      "description": "입주민의 라이프스타일을 세심하게 반영한 평면 설계로, 공간 효율성과 개방감을 극대화한 주거 공간을 제공합니다."
+      "description": "84㎡~126㎡ 6개 타입, 총 9개동 300세대. 4Bay 판상형·와이드형 설계로 채광과 통풍을 극대화하고, 대형 드레스룸·알파룸 등 수납 특화 평면을 제공합니다."
     },
     {
       "id": "03",
-      "imageUrl": "",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440041/apartment/feature-03.png",
       "title": "커뮤니티 시설",
       "subtitle": "COMMUNITY",
-      "description": "피트니스 센터, 독서실, 키즈카페 등 다양한 커뮤니티 시설을 갖춰 입주민의 삶의 질을 한 단계 높여드립니다."
+      "description": "골프연습장(스크린 포함), 피트니스센터(GX룸 포함), 공용 공간 등 총 591㎡ 규모의 입주민 전용 커뮤니티. 어디서나 자연을 만날 수 있는 공원 같은 단지를 만들었습니다."
     },
     {
       "id": "04",
-      "imageUrl": "",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440042/apartment/feature-04.png",
       "title": "교통 편의",
       "subtitle": "TRANSPORTATION",
-      "description": "지하철역 도보 5분 거리, 주요 간선도로와 인접하여 서울 전역으로의 빠른 이동이 가능한 탁월한 교통 환경입니다."
+      "description": "단지 바로 앞 지하철 2호선 예정역으로 초역세권 미래가치. 서울대로·제2순환도로 인접, 나주 19km·화순 14km 광역 접근성. 대중교통 이용률 높은 광주남구 교통 중심입니다."
     }
   ],
   "sitemap": {
     "location": {
-      "imageUrl": "",
-      "description": "지하철역 도보 5분, 주요 간선도로 인접. 서울 전역으로의 빠른 접근이 가능한 탁월한 입지입니다.",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440047/apartment/sitemap-location.png",
+      "description": "광주 진월동 위치. 단지 바로 앞 지하철 2호선 예정, 서울대로 및 제2순환도로 인접. 나주·화순까지 광역 접근이 가능한 탁월한 입지입니다.",
       "badges": [
-        "지하철 도보 5분",
-        "버스 정류장 1분",
-        "IC 10분"
+        "지하철 2호선 예정",
+        "서울대로 인접",
+        "제2순환도로 5분"
       ]
     },
     "layout": {
-      "imageUrl": "",
-      "description": "남향 위주의 동 배치로 채광과 통풍을 극대화하였으며, 단지 내 녹지 공간을 풍부하게 확보하였습니다.",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440044/apartment/sitemap-layout.png",
+      "description": "총 9개동 300세대, 지상 3~20층 배치. 제석산과 진월 자연환경을 담은 중앙 녹지 광장을 중심으로 남향 위주의 동 배치와 지하 주차 연결을 갖추었습니다.",
       "badges": [
         "남향 위주 배치",
         "중앙 녹지 광장",

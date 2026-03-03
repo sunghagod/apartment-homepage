@@ -3,6 +3,8 @@ import path from "path";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
+import Location from "@/components/Location";
+import Amenities from "@/components/Amenities";
 import FloorPlan from "@/components/FloorPlan";
 import SiteMap from "@/components/SiteMap";
 import ReservationForm from "@/components/ReservationForm";
@@ -29,6 +31,8 @@ export default function Home() {
       <main>
         <Hero content={content?.hero} />
         <Features features={content?.features} />
+        <Location />
+        <Amenities />
         <FloorPlan />
         <SiteMap sitemap={content?.sitemap} />
         <ReservationForm />

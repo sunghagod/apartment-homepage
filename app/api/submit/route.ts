@@ -1,13 +1,20 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { submitToGoogleSheets, type ReservationData } from "@/lib/google-sheets";
+import { submitRateLimit } from "@/lib/auth";
 
-export const runtime = "edge";
+const VALID_SIZES = ["84A", "84B", "84C", "84D", "115", "126", "미정"];
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  if (!submitRateLimit(request)) {
+    return NextResponse.json(
+      { error: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." },
+      { status: 429 }
+    );
+  }
+
   try {
     const body: ReservationData = await request.json();
 
-    // Server-side validation
     if (!body.name || !body.phone || !body.date) {
       return NextResponse.json(
         { error: "필수 항목을 모두 입력해주세요." },
@@ -27,6 +34,20 @@ export async function POST(request: Request) {
     if (!phoneRegex.test(body.phone)) {
       return NextResponse.json(
         { error: "연락처를 올바르게 입력해주세요." },
+        { status: 400 }
+      );
+    }
+
+    if (body.size && !VALID_SIZES.includes(body.size)) {
+      return NextResponse.json(
+        { error: "유효하지 않은 평형 선택입니다." },
+        { status: 400 }
+      );
+    }
+
+    if (body.message && body.message.length > 500) {
+      return NextResponse.json(
+        { error: "메모는 500자 이하로 입력해주세요." },
         { status: 400 }
       );
     }

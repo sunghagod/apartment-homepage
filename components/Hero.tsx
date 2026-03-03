@@ -73,16 +73,29 @@ export default function Hero({ content }: { content?: HeroContent }) {
         style={{ backgroundImage: `url('${bgImage}')` }}
       />
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#09090D] via-[#09090D]/65 to-[#09090D]/20" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#09090D]/80 via-[#09090D]/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--brand-bg)] via-[var(--brand-bg)]/65 to-[var(--brand-bg)]/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-bg)]/80 via-[var(--brand-bg)]/30 to-transparent" />
 
       {/* Content */}
       <div className="relative z-10 max-w-[1320px] mx-auto px-6 w-full pt-24 pb-12 desktop:pt-0 desktop:pb-24">
+        {/* Mobile glassmorphism badge */}
+        <div className="desktop:hidden mb-5">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-3.5 py-2 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-gold)] animate-pulse" />
+            <span
+              className="text-[11px] font-medium text-white/90 tracking-[1px]"
+              style={{ fontFamily: "var(--font-secondary)" }}
+            >
+              신규 분양 · 청약 예정
+            </span>
+          </div>
+        </div>
+
         {/* Eyebrow */}
         <div className="flex items-center gap-5 mb-6 desktop:mb-10">
           <div className="hero-rule h-px w-14 bg-[var(--brand-gold)]" />
           <span
-            className="hero-eyebrow text-[15px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase"
+            className="hero-eyebrow text-[11px] tablet:text-[15px] font-medium text-[var(--brand-gold)] tracking-[2px] tablet:tracking-[3px] uppercase truncate"
             style={{ fontFamily: "var(--font-secondary)" }}
           >
             {eyebrow}
@@ -105,7 +118,7 @@ export default function Hero({ content }: { content?: HeroContent }) {
         </div>
 
         {/* Description */}
-        <p className="hero-desc text-[14px] font-light text-white/55 leading-relaxed mb-6 desktop:mb-8 max-w-[380px] whitespace-pre-line">
+        <p className="hero-desc text-[15px] font-normal text-white/75 leading-relaxed mb-6 desktop:mb-8 max-w-[380px] whitespace-pre-line">
           {description}
         </p>
 
@@ -128,7 +141,7 @@ export default function Hero({ content }: { content?: HeroContent }) {
                 .getElementById("features")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="flex items-center gap-2 text-white/50 text-[15px] font-light hover:text-white/80 transition-colors duration-300"
+            className="flex items-center gap-2 text-white/65 text-[15px] font-normal hover:text-white transition-colors duration-300"
           >
             단지소개
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -143,20 +156,20 @@ export default function Hero({ content }: { content?: HeroContent }) {
           </button>
         </div>
 
-        {/* Stats — 모바일 숨김 */}
-        <div className="hero-stats hidden desktop:grid mt-20 pt-7 border-t border-white/[0.08] grid-cols-3 gap-4 max-w-xs">
+        {/* Stats */}
+        <div className="hero-stats grid grid-cols-3 gap-2 desktop:gap-4 mt-10 desktop:mt-20 pt-5 desktop:pt-7 border-t border-white/[0.08]">
           {stats.map((s) => (
             <div key={s.label}>
               <p
-                className="text-xl font-bold text-white leading-none mb-1.5"
+                className="text-[16px] desktop:text-xl font-bold text-white leading-none mb-1 desktop:mb-1.5"
                 style={{ fontFamily: "var(--font-secondary)" }}
               >
                 {s.val}
-                <span className="text-[11px] font-light text-[var(--brand-gold)] ml-1">
+                <span className="text-[10px] desktop:text-[11px] font-light text-[var(--brand-gold)] ml-1">
                   {s.unit}
                 </span>
               </p>
-              <p className="text-[11px] font-light text-white/38 tracking-[0.3px]">
+              <p className="text-[11px] desktop:text-[12px] font-normal text-white/58 tracking-[0.3px]">
                 {s.label}
               </p>
             </div>
@@ -168,7 +181,7 @@ export default function Hero({ content }: { content?: HeroContent }) {
       <div className="absolute bottom-8 right-6 tablet:right-10 flex flex-col items-center gap-3">
         <div className="w-px h-14 bg-gradient-to-b from-transparent to-white/20" />
         <span
-          className="text-white/22 text-[9px] tracking-[3px]"
+          className="text-white/40 text-[9px] tracking-[3px]"
           style={{
             writingMode: "vertical-rl",
             fontFamily: "var(--font-secondary)",

@@ -122,53 +122,93 @@ export default function Features({ features: featureContent }: { features?: Feat
         </h2>
       </div>
 
-      {/* Feature rows */}
-      <div className="border-t border-white/[0.06]">
+      {/* Mobile: horizontal scroll cards */}
+      <div
+        className="desktop:hidden flex gap-3 overflow-x-auto px-6 pb-8 pt-2 snap-x snap-mandatory"
+        style={{ scrollbarWidth: "none" }}
+      >
+        {features.map((feat) => (
+          <div
+            key={feat.num}
+            className="relative flex-none w-[72vw] max-w-[280px] aspect-[3/4] snap-start overflow-hidden bg-[var(--brand-surface)] rounded-sm"
+          >
+            {/* Background image */}
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${feat.image}')` }}
+            />
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
+            {/* Content */}
+            <div className="absolute inset-0 p-5 flex flex-col justify-between">
+              <div className="flex items-center gap-2">
+                <div className="h-px w-5 bg-[var(--brand-gold)]" />
+                <span
+                  className="text-[9px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase"
+                  style={{ fontFamily: "var(--font-secondary)" }}
+                >
+                  {feat.subtitle}
+                </span>
+              </div>
+              <div>
+                <span
+                  className="text-[52px] font-bold text-white/8 leading-none block -mb-1"
+                  style={{ fontFamily: "var(--font-secondary)" }}
+                >
+                  {feat.num}
+                </span>
+                <h3 className="text-[20px] font-bold text-white tracking-[-0.5px] mb-2">
+                  {feat.title}
+                </h3>
+                <p className="text-[13px] font-normal text-white/80 leading-relaxed line-clamp-4">
+                  {feat.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+        {/* trailing spacer */}
+        <div className="flex-none w-3" />
+      </div>
+
+      {/* Desktop: alternating rows */}
+      <div className="hidden desktop:block border-t border-white/[0.06]">
         {features.map((feat, i) => {
           const isReversed = i % 2 === 1;
           return (
             <div
               key={feat.num}
-              className={`feat-row flex flex-col ${
+              className={`feat-row flex ${
                 isReversed ? "desktop:flex-row-reverse" : "desktop:flex-row"
               } border-b border-white/[0.06]`}
             >
               {/* Text panel */}
               <div className="feat-text w-full desktop:w-[44%] flex flex-col justify-center px-6 py-7 desktop:px-16 desktop:py-20">
-                {/* 모바일 전용 썸네일 */}
-                <div
-                  className="desktop:hidden w-full h-40 mb-5 bg-cover bg-center overflow-hidden"
-                  style={{ backgroundImage: `url('${feat.image}')` }}
-                >
-                  <div className="w-full h-full bg-black/20" />
-                </div>
-
                 {/* 숫자 */}
                 <span
-                  className="text-[32px] desktop:text-[88px] font-bold leading-none text-white/[0.07] select-none mb-2 desktop:mb-3 block"
+                  className="text-[88px] font-bold leading-none text-white/[0.07] select-none mb-3 block"
                   style={{ fontFamily: "var(--font-secondary)" }}
                 >
                   {feat.num}
                 </span>
-
                 {/* 콘텐츠 */}
                 <span
-                  className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase mb-3 desktop:mb-4 block"
+                  className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase mb-4 block"
                   style={{ fontFamily: "var(--font-secondary)" }}
                 >
                   {feat.subtitle}
                 </span>
-                <h3 className="text-[20px] desktop:text-[30px] font-bold text-white tracking-[-0.5px] desktop:tracking-[-1px] mb-3 desktop:mb-5">
+                <h3 className="text-[30px] font-bold text-white tracking-[-1px] mb-5">
                   {feat.title}
                 </h3>
-                <div className="w-6 desktop:w-8 h-px bg-[var(--brand-gold)] mb-3 desktop:mb-5" />
-                <p className="text-[14px] desktop:text-[15px] font-light text-white/55 leading-relaxed max-w-[380px]">
+                <div className="w-8 h-px bg-[var(--brand-gold)] mb-5" />
+                <p className="text-[15px] font-normal text-white/75 leading-relaxed max-w-[380px]">
                   {feat.description}
                 </p>
               </div>
 
-              {/* Image panel — 모바일 숨김 */}
-              <div className="feat-img-wrap hidden desktop:block relative w-full desktop:w-[56%] desktop:h-auto desktop:min-h-[340px] overflow-hidden">
+              {/* Image panel */}
+              <div className="feat-img-wrap relative w-full desktop:w-[56%] desktop:h-auto desktop:min-h-[340px] overflow-hidden">
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-[1.04]"
                   style={{ backgroundImage: `url('${feat.image}')` }}

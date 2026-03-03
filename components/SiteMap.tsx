@@ -102,7 +102,7 @@ export default function SiteMap({ sitemap }: { sitemap?: SitemapContent }) {
                 className={`px-6 tablet:px-10 py-3 text-[15px] tablet:text-[18px] font-normal tracking-[-0.3px] transition-all duration-250 border-b-2 -mb-px ${
                   activeTab === tab.id
                     ? "text-white font-semibold border-[var(--brand-gold)]"
-                    : "text-white/40 border-transparent hover:text-white/70"
+                    : "text-white/58 border-transparent hover:text-white/80"
                 }`}
                 style={{ fontFamily: "var(--font-secondary)" }}
               >
@@ -166,7 +166,7 @@ export default function SiteMap({ sitemap }: { sitemap?: SitemapContent }) {
 
             {/* Info */}
             <div className="w-full desktop:w-2/5 desktop:pt-2">
-              <p className="text-[15px] font-light text-white/55 leading-relaxed mb-8">
+              <p className="text-[15px] font-normal text-white/75 leading-relaxed mb-8">
                 {active.description}
               </p>
 
@@ -182,13 +182,14 @@ export default function SiteMap({ sitemap }: { sitemap?: SitemapContent }) {
                 ))}
               </div>
 
-              {/* Divider + note */}
-              <div className="border-t border-white/[0.08] pt-6">
-                <p className="text-[12px] font-light text-white/25 leading-relaxed">
-                  * 실제 {active.label} 이미지는 추후 업데이트 예정입니다.<br />
-                  분양 문의 시 상세 자료를 제공해 드립니다.
-                </p>
-              </div>
+              {!active.imageUrl && (
+                <div className="border-t border-white/[0.08] pt-6">
+                  <p className="text-[12px] font-normal text-white/48 leading-relaxed">
+                    * 실제 {active.label} 이미지는 추후 업데이트 예정입니다.<br />
+                    분양 문의 시 상세 자료를 제공해 드립니다.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

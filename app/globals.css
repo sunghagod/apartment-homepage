@@ -1,169 +1,132 @@
 @import "tailwindcss";
 
 /* ============================================
-   Unified Design System - Korean Apartment Brand
-   Sources: LOTTE CASTLE + e편한세상
+   Design System — Brand Apartment Premium
+   Inspired by Behance 2025: OCTO / OSOME / WaxyWeb
    ============================================ */
 
-/* ── Theme Variables ── */
 :root {
-  --theme-primary: #8b2332;
-  --theme-primary-deep: #63232c;
-  --theme-accent: #e1d1b0;
-}
+  /* Brand Core */
+  --brand-bg:      #12121A;
+  --brand-surface: #1C1C26;
+  --brand-gold:    #C8A870;
+  --brand-gold-lt: #DFCBA0;
+  --brand-cream:   #F1EBE1;
+  --brand-cream2:  #E8E0D4;
 
-[data-theme="modern"] {
-  --theme-primary: #ff671d;
-  --theme-primary-deep: #ff5723;
-  --theme-accent: #0c2340;
-}
+  /* Warm Neutral Scale */
+  --n-50:  #F5F0EA;
+  --n-100: #E6DFD5;
+  --n-200: #CBC3B6;
+  --n-300: #AAA29B;
+  --n-400: #857F79;
+  --n-500: #605C56;
+  --n-600: #43403B;
+  --n-700: #2C2A26;
+  --n-800: #1A1917;
+  --n-900: #0D0C0B;
 
-:root {
-  /* Brand Colors */
-  --brand-burgundy: #8b2332;
-  --brand-burgundy-deep: #63232c;
-  --brand-gold: #e1d1b0;
-  --brand-orange: #ff671d;
-  --brand-orange-alt: #ff5723;
-  --brand-navy: #0c2340;
-  --brand-warm-bg: #fff4e4;
-
-  /* Neutral Palette */
+  /* Semantic */
+  --color-accent: var(--brand-gold);
   --white: #ffffff;
-  --gray-50: #f7f7f7;
-  --gray-100: #f0f0f0;
-  --gray-200: #e1e1e1;
-  --gray-300: #dddddd;
-  --gray-400: #bfbfbf;
-  --gray-500: #999999;
-  --gray-600: #666666;
-  --gray-700: #555555;
-  --gray-800: #333333;
-  --gray-900: #111111;
-  --black: #000000;
 
-  /* Semantic Colors */
-  --color-text-primary: var(--gray-800);
-  --color-text-secondary: var(--gray-600);
-  --color-text-caption: var(--gray-500);
-  --color-text-heading: var(--gray-900);
-  --color-text-inverse: var(--white);
-  --color-bg-primary: var(--white);
-  --color-bg-secondary: var(--gray-50);
-  --color-bg-dark: var(--gray-800);
-  --color-border: var(--gray-300);
-  --color-border-strong: var(--gray-800);
-  --color-border-form: var(--gray-600);
-  --color-accent: var(--theme-primary);
+  /* Gray scale aliases — for existing component compatibility */
+  --gray-50:  var(--n-50);
+  --gray-100: var(--n-100);
+  --gray-200: var(--n-200);
+  --gray-300: var(--n-300);
+  --gray-400: var(--n-400);
+  --gray-500: var(--n-500);
+  --gray-600: var(--n-600);
+  --gray-700: var(--n-700);
+  --gray-800: var(--n-800);
+  --gray-900: var(--n-900);
 
-  /* Font Families */
-  --font-primary: "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Typography */
+  --font-primary:   "Noto Sans KR", system-ui, sans-serif;
   --font-secondary: "Manrope", sans-serif;
-
-  /* Spacing */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-16: 64px;
-  --space-20: 80px;
-  --space-section: 100px;
 
   /* Layout */
   --max-width: 1320px;
-  --page-padding: 0 24px;
-
-  /* Borders */
-  --border-default: 1px solid var(--gray-300);
-  --border-strong: 1px solid var(--gray-800);
-  --border-form: 1px solid var(--gray-600);
-
-  /* Border Radius */
-  --radius-none: 0px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-pill: 40px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.15);
-
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
+  --shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --shadow-md:   0 8px 40px rgba(0, 0, 0, 0.4);
+  --shadow-lg:   0 20px 80px rgba(0, 0, 0, 0.5);
 }
 
 /* ── Tailwind v4 Theme Extension ── */
 @theme inline {
-  --breakpoint-tablet: 768px;
+  --breakpoint-tablet:  768px;
   --breakpoint-desktop: 1024px;
-  --breakpoint-wide: 1440px;
+  --breakpoint-wide:    1440px;
 
-  --color-theme-primary: var(--theme-primary);
-  --color-theme-primary-deep: var(--theme-primary-deep);
-  --color-theme-accent: var(--theme-accent);
-  --color-brand-burgundy: #8b2332;
-  --color-brand-gold: #e1d1b0;
-  --color-gray-50: #f7f7f7;
-  --color-gray-100: #f0f0f0;
-  --color-gray-200: #e1e1e1;
-  --color-gray-300: #dddddd;
-  --color-gray-400: #bfbfbf;
-  --color-gray-500: #999999;
-  --color-gray-600: #666666;
-  --color-gray-700: #555555;
-  --color-gray-800: #333333;
-  --color-gray-900: #111111;
-  --font-primary: "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Brand */
+  --color-brand-bg:      #12121A;
+  --color-brand-surface: #1C1C26;
+  --color-brand-gold:    #C8A870;
+  --color-brand-gold-lt: #DFCBA0;
+  --color-brand-cream:   #F1EBE1;
+  --color-brand-cream2:  #E8E0D4;
+
+  /* Neutral scale */
+  --color-n-50:  #F5F0EA;
+  --color-n-100: #E6DFD5;
+  --color-n-200: #CBC3B6;
+  --color-n-300: #AAA29B;
+  --color-n-400: #857F79;
+  --color-n-500: #605C56;
+  --color-n-600: #43403B;
+  --color-n-700: #2C2A26;
+  --color-n-800: #1A1917;
+  --color-n-900: #0D0C0B;
+
+  /* Gray aliases for component compatibility */
+  --color-gray-50:  #F5F0EA;
+  --color-gray-100: #E6DFD5;
+  --color-gray-200: #CBC3B6;
+  --color-gray-300: #AAA29B;
+  --color-gray-400: #857F79;
+  --color-gray-500: #605C56;
+  --color-gray-600: #43403B;
+  --color-gray-700: #2C2A26;
+  --color-gray-800: #1A1917;
+  --color-gray-900: #0D0C0B;
+
+  --font-primary:   "Noto Sans KR", system-ui, sans-serif;
   --font-secondary: "Manrope", sans-serif;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.15);
+  --shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --shadow-md:   0 8px 40px rgba(0, 0, 0, 0.4);
+  --shadow-lg:   0 20px 80px rgba(0, 0, 0, 0.5);
 
   --animate-fade-in-up: fadeInUp 0.8s ease forwards;
-  --animate-spin-slow: spin 1s linear infinite;
+  --animate-spin-slow:  spin 1s linear infinite;
 
   @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
   }
 }
 
-/* ── Base Typography ── */
+/* ── Base ── */
 body {
   font-family: var(--font-primary);
-  font-size: 18px;
-  font-weight: 300;
-  color: var(--color-text-primary);
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--brand-cream);
+  letter-spacing: 0px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--white);
+  background: var(--brand-bg);
 }
 
-/* ── Scroll Animation Helper ── */
 .gsap-fade-in {
   opacity: 0;
   transform: translateY(30px);

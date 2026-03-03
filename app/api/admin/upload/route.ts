@@ -2,11 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
 import { readFileSync, writeFileSync } from "fs";
 import path from "path";
-
-function checkAuth(req: NextRequest) {
-  const session = req.cookies.get("admin_session");
-  return session?.value === "1";
-}
+import { checkAuth } from "@/lib/auth";
 
 const VALID_SLOTS = [
   "hero",
@@ -18,8 +14,11 @@ const VALID_SLOTS = [
   "sitemap-layout",
 ];
 
+const ALLOWED_MIME = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
 export async function POST(req: NextRequest) {
-  if (!checkAuth(req)) {
+  if (!(await checkAuth(req))) {
     return NextResponse.json({ error: "인증이 필요합니다." }, { status: 401 });
   }
 
@@ -33,6 +32,20 @@ export async function POST(req: NextRequest) {
 
   if (!VALID_SLOTS.includes(slot)) {
     return NextResponse.json({ error: "유효하지 않은 슬롯입니다." }, { status: 400 });
+  }
+
+  if (!ALLOWED_MIME.includes(file.type)) {
+    return NextResponse.json(
+      { error: "허용되지 않는 파일 형식입니다. (jpeg/png/webp/gif만 가능)" },
+      { status: 400 }
+    );
+  }
+
+  if (file.size > MAX_FILE_SIZE) {
+    return NextResponse.json(
+      { error: "파일 크기는 5MB를 초과할 수 없습니다." },
+      { status: 400 }
+    );
   }
 
   const arrayBuffer = await file.arrayBuffer();
