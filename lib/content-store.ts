@@ -33,7 +33,7 @@ export async function saveContent(data: Record<string, unknown>): Promise<void> 
         overwrite: true,
         invalidate: true,
       },
-      (err, result) => {
+      (err, _result) => {
         if (err) reject(err);
         else resolve();
       }
