@@ -124,20 +124,19 @@ export default function Features({ features: featureContent }: { features?: Feat
 
       {/* Mobile: horizontal scroll cards */}
       <div
-        className="desktop:hidden flex gap-3 overflow-x-auto px-6 pb-8 pt-2 snap-x snap-mandatory"
+        className="desktop:hidden flex items-start gap-3 overflow-x-auto px-6 pb-8 pt-2 snap-x snap-mandatory"
         style={{ scrollbarWidth: "none" }}
       >
         {features.map((feat) => {
-          // feature-03: 두 장면 와이드 이미지 → landscape 비율
-          const isWide = feat.num === "03";
           // feature-02: 오른쪽 파란 블록 숨김 → left 정렬
-          const mobileBgPos = feat.num === "02" ? "left center" : isWide ? "center top" : "center";
+          // feature-03: 두 장면 와이드 이미지 → top 기준으로 잘라서 표시
+          const mobileBgPos =
+            feat.num === "02" ? "left center" :
+            feat.num === "03" ? "center top" : "center";
           return (
           <div
             key={feat.num}
-            className={`relative flex-none snap-start overflow-hidden bg-[var(--brand-surface)] rounded-sm ${
-              isWide ? "w-[88vw] max-w-[420px] aspect-[16/9]" : "w-[72vw] max-w-[280px] aspect-[3/4]"
-            }`}
+            className="relative flex-none w-[72vw] max-w-[280px] aspect-[3/4] snap-start overflow-hidden bg-[var(--brand-surface)] rounded-sm"
           >
             {/* Background image */}
             <div
