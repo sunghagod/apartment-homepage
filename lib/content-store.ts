@@ -2,13 +2,15 @@ import cloudinary from "./cloudinary";
 import { readFileSync } from "fs";
 import path from "path";
 
-const PUBLIC_ID = "apartment/content-data";
-const CLOUDINARY_URL = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload/${PUBLIC_ID}.json`;
+const PUBLIC_ID = "apartment/content-data.json";
+const CLOUDINARY_BASE = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload`;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getContent(): Promise<Record<string, any>> {
   try {
-    const res = await fetch(CLOUDINARY_URL, { cache: "no-store" });
+    // Cache-busting timestamp to bypass Cloudinary CDN
+    const url = `${CLOUDINARY_BASE}/${PUBLIC_ID}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: "no-store" });
     if (res.ok) return await res.json();
   } catch {
     // fallback below
