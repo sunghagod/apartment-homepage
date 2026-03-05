@@ -127,15 +127,22 @@ export default function Features({ features: featureContent }: { features?: Feat
         className="desktop:hidden flex gap-3 overflow-x-auto px-6 pb-8 pt-2 snap-x snap-mandatory"
         style={{ scrollbarWidth: "none" }}
       >
-        {features.map((feat) => (
+        {features.map((feat) => {
+          // feature-03: 두 장면 와이드 이미지 → landscape 비율
+          const isWide = feat.num === "03";
+          // feature-02: 오른쪽 파란 블록 숨김 → left 정렬
+          const mobileBgPos = feat.num === "02" ? "left center" : isWide ? "center top" : "center";
+          return (
           <div
             key={feat.num}
-            className="relative flex-none w-[72vw] max-w-[280px] aspect-[3/4] snap-start overflow-hidden bg-[var(--brand-surface)] rounded-sm"
+            className={`relative flex-none snap-start overflow-hidden bg-[var(--brand-surface)] rounded-sm ${
+              isWide ? "w-[88vw] max-w-[420px] aspect-[16/9]" : "w-[72vw] max-w-[280px] aspect-[3/4]"
+            }`}
           >
             {/* Background image */}
             <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url('${feat.image}')` }}
+              className="absolute inset-0 bg-cover"
+              style={{ backgroundImage: `url('${feat.image}')`, backgroundPosition: mobileBgPos }}
             />
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
@@ -166,7 +173,8 @@ export default function Features({ features: featureContent }: { features?: Feat
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
         {/* trailing spacer */}
         <div className="flex-none w-3" />
       </div>
@@ -175,6 +183,12 @@ export default function Features({ features: featureContent }: { features?: Feat
       <div className="hidden desktop:block border-t border-white/[0.06]">
         {features.map((feat, i) => {
           const isReversed = i % 2 === 1;
+          // feature-02: 왼쪽 정렬로 오른쪽 파란 블록 숨김
+          // feature-03: 와이드 두 장면 이미지 → contain으로 전체 표시
+          const desktopBgPos =
+            feat.num === "02" ? "left center" :
+            feat.num === "03" ? "center center" : "center center";
+          const desktopBgSize = feat.num === "03" ? "contain" : "cover";
           return (
             <div
               key={feat.num}
@@ -210,8 +224,13 @@ export default function Features({ features: featureContent }: { features?: Feat
               {/* Image panel */}
               <div className="feat-img-wrap relative w-full desktop:w-[56%] desktop:h-auto desktop:min-h-[340px] overflow-hidden">
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-[1.04]"
-                  style={{ backgroundImage: `url('${feat.image}')` }}
+                  className="absolute inset-0 transition-transform duration-700 hover:scale-[1.04]"
+                  style={{
+                    backgroundImage: `url('${feat.image}')`,
+                    backgroundSize: desktopBgSize,
+                    backgroundPosition: desktopBgPos,
+                    backgroundRepeat: "no-repeat",
+                  }}
                 />
                 <div className="absolute inset-0 bg-black/20" />
               </div>

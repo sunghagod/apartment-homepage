@@ -108,13 +108,13 @@ export default function Location({ mapImageUrl }: { mapImageUrl?: string }) {
           {/* Map image */}
           <div className="loc-map w-full desktop:w-3/5">
             <div
-              className="relative aspect-[4/3] tablet:aspect-[16/10] bg-[var(--brand-surface)] border border-white/[0.08] overflow-hidden cursor-zoom-in group"
+              className="relative aspect-[3/2] tablet:aspect-[16/10] bg-[var(--brand-surface)] border border-white/[0.08] overflow-hidden cursor-zoom-in group"
               onClick={() => setLightbox(true)}
             >
               <img
                 src={MAP_IMAGE_URL}
                 alt="진월 더리브 라포레 입지 지도"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
               {/* Zoom hint overlay */}
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
