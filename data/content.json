@@ -1,6 +1,6 @@
 {
   "site": {
-    "name": "진월 더리브 라포레"
+    "name": "진월, 더리브 라포레"
   },
   "hero": {
     "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440772/apartment/hero.png",
@@ -59,6 +59,9 @@
       "description": "단지 바로 앞 지하철 2호선 예정역으로 초역세권 미래가치. 서울대로·제2순환도로 인접, 나주 19km·화순 14km 광역 접근성. 대중교통 이용률 높은 광주남구 교통 중심입니다."
     }
   ],
+  "location": {
+    "mapImageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772690429/apartment/transport-map.png"
+  },
   "sitemap": {
     "location": {
       "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440047/apartment/sitemap-location.png",

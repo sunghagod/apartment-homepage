@@ -31,7 +31,7 @@ export default function Home() {
       <main>
         <Hero content={content?.hero} />
         <Features features={content?.features} />
-        <Location />
+        <Location mapImageUrl={content?.location?.mapImageUrl} />
         <Amenities />
         <FloorPlan />
         <SiteMap sitemap={content?.sitemap} />

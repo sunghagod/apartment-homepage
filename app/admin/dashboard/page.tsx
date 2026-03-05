@@ -26,6 +26,7 @@ interface SitemapSection {
 
 interface Content {
   site: { name: string };
+  location?: { mapImageUrl: string };
   hero: {
     imageUrl: string;
     eyebrow: string;
@@ -434,6 +435,24 @@ export default function DashboardPage() {
               </div>
             ))}
           </div>
+        </SectionCard>
+
+        {/* ── 섹션 3-1: 입지 지도 ── */}
+        <SectionCard
+          title="입지 지도 (탁월한 입지 섹션)"
+          onSave={() => saveContent("location")}
+          saving={savingSection === "location"}
+        >
+          <Field label="지도 이미지">
+            <ImageUploadCard
+              slot="location-map"
+              currentUrl={content.location?.mapImageUrl ?? ""}
+              onUploaded={(url) =>
+                setContent({ ...content, location: { mapImageUrl: url } })
+              }
+            />
+          </Field>
+          <p className="text-[12px] text-white/30">클릭하여 지도 이미지를 교체합니다. 홈페이지 &apos;탁월한 입지&apos; 섹션에 바로 반영됩니다.</p>
         </SectionCard>
 
         {/* ── 섹션 4: 위치/배치도 (SiteMap) ── */}

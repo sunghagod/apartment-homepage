@@ -12,6 +12,7 @@ const VALID_SLOTS = [
   "feature-04",
   "sitemap-location",
   "sitemap-layout",
+  "location-map",
 ];
 
 const ALLOWED_MIME = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -80,6 +81,9 @@ export async function POST(req: NextRequest) {
     content.sitemap.location.imageUrl = result.secure_url;
   } else if (slot === "sitemap-layout") {
     content.sitemap.layout.imageUrl = result.secure_url;
+  } else if (slot === "location-map") {
+    if (!content.location) content.location = {};
+    content.location.mapImageUrl = result.secure_url;
   }
 
   writeFileSync(contentPath, JSON.stringify(content, null, 2));
