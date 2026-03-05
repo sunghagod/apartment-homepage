@@ -4,6 +4,8 @@ import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 import { checkAuth } from "@/lib/auth";
 
+export const maxDuration = 30;
+
 const VALID_SLOTS = [
   "hero",
   "feature-01",
@@ -16,7 +18,8 @@ const VALID_SLOTS = [
 ];
 
 const ALLOWED_MIME = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+
 
 export async function POST(req: NextRequest) {
   if (!(await checkAuth(req))) {
@@ -44,7 +47,7 @@ export async function POST(req: NextRequest) {
 
   if (file.size > MAX_FILE_SIZE) {
     return NextResponse.json(
-      { error: "파일 크기는 5MB를 초과할 수 없습니다." },
+      { error: `파일 크기는 20MB를 초과할 수 없습니다. (현재: ${(file.size / 1024 / 1024).toFixed(1)}MB)` },
       { status: 400 }
     );
   }
