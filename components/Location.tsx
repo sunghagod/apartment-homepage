@@ -1,6 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import ImageLightbox from "@/components/ui/ImageLightbox";
+
+const MAP_IMAGE_URL = "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772689949/apartment/transport-map.png";
 
 const TRANSPORT = [
   { label: "지하철 2호선 예정역", value: "도보 3분", key: true },
@@ -26,6 +29,7 @@ const INFO_GROUPS = [
 
 export default function Location() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [lightbox, setLightbox] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -59,6 +63,7 @@ export default function Location() {
   }, []);
 
   return (
+    <>
     <section
       id="location"
       ref={sectionRef}
@@ -99,45 +104,26 @@ export default function Location() {
 
         {/* Body */}
         <div className="flex flex-col desktop:flex-row gap-8">
-          {/* Map placeholder */}
+          {/* Map image */}
           <div className="loc-map w-full desktop:w-3/5">
-            <div className="relative aspect-[4/3] tablet:aspect-[16/10] bg-[var(--brand-surface)] border border-white/[0.08] overflow-hidden">
-              {/* Grid pattern */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
-                  backgroundSize: "48px 48px",
-                }}
+            <div
+              className="relative aspect-[4/3] tablet:aspect-[16/10] bg-[var(--brand-surface)] border border-white/[0.08] overflow-hidden cursor-zoom-in group"
+              onClick={() => setLightbox(true)}
+            >
+              <img
+                src={MAP_IMAGE_URL}
+                alt="진월 더리브 라포레 입지 지도"
+                className="absolute inset-0 w-full h-full object-cover"
               />
-              {/* Center pin */}
-              <div className="absolute inset-0 flex items-center justify-center flex-col gap-4">
-                <div className="relative flex items-center justify-center w-14 h-14">
-                  <span className="absolute inset-0 rounded-full bg-[var(--brand-gold)]/15 animate-ping" />
-                  <svg
-                    width="52"
-                    height="52"
-                    viewBox="0 0 52 52"
-                    fill="none"
-                    className="relative"
-                  >
-                    <path
-                      d="M26 4C16.059 4 8 12.059 8 22c0 14 18 30 18 30s18-16 18-30c0-9.941-8.059-18-18-18z"
-                      stroke="var(--brand-gold)"
-                      strokeWidth="2"
-                      fill="rgba(200,168,112,0.12)"
-                    />
-                    <circle cx="26" cy="22" r="5" fill="var(--brand-gold)" />
+              {/* Zoom hint overlay */}
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <circle cx="12" cy="12" r="7.5" stroke="white" strokeWidth="2" />
+                    <line x1="18" y1="18" x2="25" y2="25" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                    <line x1="9" y1="12" x2="15" y2="12" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                    <line x1="12" y1="9" x2="12" y2="15" stroke="white" strokeWidth="2" strokeLinecap="round" />
                   </svg>
-                </div>
-                <div className="text-center">
-                  <p className="text-white/50 text-[13px] font-normal">
-                    지도 이미지 준비 중
-                  </p>
-                  <p className="text-white/38 text-[11px] font-normal mt-1">
-                    광주광역시 남구 진월동
-                  </p>
                 </div>
               </div>
 
@@ -228,5 +214,14 @@ export default function Location() {
         </div>
       </div>
     </section>
+
+    {lightbox && (
+      <ImageLightbox
+        src={MAP_IMAGE_URL}
+        alt="진월 더리브 라포레 입지 지도"
+        onClose={() => setLightbox(false)}
+      />
+    )}
+  </>
   );
 }
