@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
-import { readFileSync, writeFileSync } from "fs";
-import path from "path";
 import { checkAuth } from "@/lib/auth";
 
 export const maxDuration = 30;
@@ -69,27 +67,6 @@ export async function POST(req: NextRequest) {
     );
     uploadStream.end(buffer);
   });
-
-  const contentPath = path.join(process.cwd(), "data", "content.json");
-  const content = JSON.parse(readFileSync(contentPath, "utf-8"));
-
-  if (slot === "hero") {
-    content.hero.imageUrl = result.secure_url;
-  } else if (slot.startsWith("feature-")) {
-    const idx = parseInt(slot.replace("feature-", "")) - 1;
-    if (content.features[idx]) {
-      content.features[idx].imageUrl = result.secure_url;
-    }
-  } else if (slot === "sitemap-location") {
-    content.sitemap.location.imageUrl = result.secure_url;
-  } else if (slot === "sitemap-layout") {
-    content.sitemap.layout.imageUrl = result.secure_url;
-  } else if (slot === "location-map") {
-    if (!content.location) content.location = {};
-    content.location.mapImageUrl = result.secure_url;
-  }
-
-  writeFileSync(contentPath, JSON.stringify(content, null, 2));
 
   return NextResponse.json({ url: result.secure_url });
 }
