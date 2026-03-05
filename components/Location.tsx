@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 
-const DEFAULT_MAP_URL = "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772690429/apartment/transport-map.png";
+const DEFAULT_MAP_URL = "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772698792/apartment/transport-map.png";
 
 const TRANSPORT = [
   { label: "지하철 2호선 예정역", value: "도보 3분", key: true },
