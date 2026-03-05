@@ -182,21 +182,17 @@ export default function Features({ features: featureContent }: { features?: Feat
       <div className="hidden desktop:block border-t border-white/[0.06]">
         {features.map((feat, i) => {
           const isReversed = i % 2 === 1;
-          // feature-02: 왼쪽 정렬로 오른쪽 파란 블록 숨김
-          // feature-03: 와이드 두 장면 이미지 → contain으로 전체 표시
-          const desktopBgPos =
-            feat.num === "02" ? "left center" :
-            feat.num === "03" ? "center center" : "center center";
-          const desktopBgSize = feat.num === "03" ? "contain" : "cover";
+          // feature-02: 오른쪽 파란 블록 숨김 → left 정렬
+          const desktopBgPos = feat.num === "02" ? "left center" : "center center";
           return (
             <div
               key={feat.num}
-              className={`feat-row flex ${
+              className={`feat-row flex desktop:h-[520px] ${
                 isReversed ? "desktop:flex-row-reverse" : "desktop:flex-row"
               } border-b border-white/[0.06]`}
             >
               {/* Text panel */}
-              <div className="feat-text w-full desktop:w-[44%] flex flex-col justify-center px-6 py-7 desktop:px-16 desktop:py-20">
+              <div className="feat-text w-full desktop:w-[44%] flex flex-col justify-center px-6 py-7 desktop:px-16 desktop:py-20 overflow-hidden">
                 {/* 숫자 */}
                 <span
                   className="text-[88px] font-bold leading-none text-white/[0.07] select-none mb-3 block"
@@ -220,15 +216,13 @@ export default function Features({ features: featureContent }: { features?: Feat
                 </p>
               </div>
 
-              {/* Image panel */}
-              <div className="feat-img-wrap relative w-full desktop:w-[56%] desktop:h-auto desktop:min-h-[340px] overflow-hidden">
+              {/* Image panel — 고정 높이(row h-[520px]) 덕분에 비율이 항상 일정 */}
+              <div className="feat-img-wrap relative w-full desktop:w-[56%] overflow-hidden">
                 <div
-                  className="absolute inset-0 transition-transform duration-700 hover:scale-[1.04]"
+                  className="absolute inset-0 bg-cover transition-transform duration-700 hover:scale-[1.04]"
                   style={{
                     backgroundImage: `url('${feat.image}')`,
-                    backgroundSize: desktopBgSize,
                     backgroundPosition: desktopBgPos,
-                    backgroundRepeat: "no-repeat",
                   }}
                 />
                 <div className="absolute inset-0 bg-black/20" />
