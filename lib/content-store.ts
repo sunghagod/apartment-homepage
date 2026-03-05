@@ -5,7 +5,8 @@ import path from "path";
 const PUBLIC_ID = "apartment/content-data";
 const CLOUDINARY_URL = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload/${PUBLIC_ID}.json`;
 
-export async function getContent(): Promise<Record<string, unknown>> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getContent(): Promise<Record<string, any>> {
   try {
     const res = await fetch(CLOUDINARY_URL, { cache: "no-store" });
     if (res.ok) return await res.json();
@@ -21,7 +22,8 @@ export async function getContent(): Promise<Record<string, unknown>> {
   }
 }
 
-export async function saveContent(data: Record<string, unknown>): Promise<void> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function saveContent(data: Record<string, any>): Promise<void> {
   const json = JSON.stringify(data, null, 2);
   const buffer = Buffer.from(json, "utf-8");
 

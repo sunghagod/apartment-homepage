@@ -30,7 +30,8 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: "잘못된 데이터 형식입니다." }, { status: 400 });
   }
 
-  await saveContent(body as Record<string, unknown>);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await saveContent(body as Record<string, any>);
   revalidatePath("/");
   return NextResponse.json({ ok: true });
 }
