@@ -3,7 +3,19 @@
 import { useState, useEffect, useRef } from "react";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 
-const floorPlans = [
+interface FloorPlanContent {
+  id: string;
+  label: string;
+  name: string;
+  area: string;
+  rooms: string;
+  features: string[];
+  description: string;
+  imageUrl: string;
+  units: number;
+}
+
+const DEFAULT_FLOOR_PLANS: FloorPlanContent[] = [
   {
     id: "84A",
     label: "84㎡ A",
@@ -84,13 +96,15 @@ const floorPlans = [
   },
 ];
 
-export default function FloorPlan() {
-  const [activeTab, setActiveTab] = useState("84A");
+export default function FloorPlan({ floorPlans: floorPlansContent }: { floorPlans?: FloorPlanContent[] }) {
+  const floorPlans = floorPlansContent?.length ? floorPlansContent : DEFAULT_FLOOR_PLANS;
+
+  const [activeTab, setActiveTab] = useState(floorPlans[0]?.id || "84A");
   const [lightbox, setLightbox] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const active = floorPlans.find((p) => p.id === activeTab)!;
+  const active = floorPlans.find((p) => p.id === activeTab) ?? floorPlans[0];
 
   useEffect(() => {
     const init = async () => {
@@ -150,7 +164,7 @@ export default function FloorPlan() {
           </p>
         </div>
 
-        {/* Tabs — pill style */}
+        {/* Tabs */}
         <div className="flex flex-wrap gap-2 mb-10">
           {floorPlans.map((plan) => (
             <button
@@ -214,28 +228,16 @@ export default function FloorPlan() {
             {/* Specs */}
             <div className="space-y-0 mb-8">
               <div className="flex justify-between items-center py-4 border-b border-[var(--n-200)]">
-                <span className="text-[15px] font-medium text-[var(--n-800)]">
-                  면적
-                </span>
-                <span className="text-[15px] font-normal text-[var(--n-700)]">
-                  {active.area}
-                </span>
+                <span className="text-[15px] font-medium text-[var(--n-800)]">면적</span>
+                <span className="text-[15px] font-normal text-[var(--n-700)]">{active.area}</span>
               </div>
               <div className="flex justify-between items-center py-4 border-b border-[var(--n-200)]">
-                <span className="text-[15px] font-medium text-[var(--n-800)]">
-                  구성
-                </span>
-                <span className="text-[15px] font-normal text-[var(--n-700)]">
-                  {active.rooms}
-                </span>
+                <span className="text-[15px] font-medium text-[var(--n-800)]">구성</span>
+                <span className="text-[15px] font-normal text-[var(--n-700)]">{active.rooms}</span>
               </div>
               <div className="flex justify-between items-center py-4 border-b border-[var(--n-200)]">
-                <span className="text-[15px] font-medium text-[var(--n-800)]">
-                  공급 세대
-                </span>
-                <span className="text-[15px] font-normal text-[var(--n-700)]">
-                  {active.units}세대
-                </span>
+                <span className="text-[15px] font-medium text-[var(--n-800)]">공급 세대</span>
+                <span className="text-[15px] font-normal text-[var(--n-700)]">{active.units}세대</span>
               </div>
             </div>
 

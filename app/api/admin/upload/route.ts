@@ -13,6 +13,13 @@ const VALID_SLOTS = [
   "sitemap-location",
   "sitemap-layout",
   "location-map",
+  "floorplan-84A",
+  "floorplan-84B",
+  "floorplan-84C",
+  "floorplan-84D",
+  "floorplan-115",
+  "floorplan-126",
+  "school-section",
 ];
 
 const ALLOWED_MIME = ["image/jpeg", "image/png", "image/webp", "image/gif"];

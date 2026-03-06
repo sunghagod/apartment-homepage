@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const DEFAULT_FEATURES = [
   {
@@ -58,6 +58,8 @@ interface FeatureContent {
 
 export default function Features({ features: featureContent }: { features?: FeatureContent[] }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxSrc, setLightboxSrc] = useState("");
 
   const features = featureContent
     ? featureContent.map((f, i) => ({
@@ -106,6 +108,28 @@ export default function Features({ features: featureContent }: { features?: Feat
 
   return (
     <section id="features" ref={sectionRef} className="bg-[var(--brand-bg)]">
+      {/* 라이트박스 모달 */}
+      {lightboxOpen && (
+        <div
+          className="fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
+          onClick={() => setLightboxOpen(false)}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={lightboxSrc}
+            alt="교통 안내 지도 확대"
+            className="max-w-full max-h-full object-contain"
+            style={{ maxWidth: "95vw", maxHeight: "95vh" }}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className="absolute top-5 right-5 text-white/70 hover:text-white text-[28px] leading-none"
+            onClick={() => setLightboxOpen(false)}
+          >
+            ✕
+          </button>
+        </div>
+      )}
       {/* Section Header */}
       <div className="feat-header max-w-[1320px] mx-auto px-6 pt-14 desktop:pt-24 pb-10 desktop:pb-14">
         <div className="flex items-center gap-4 mb-6">
@@ -182,25 +206,165 @@ export default function Features({ features: featureContent }: { features?: Feat
       <div className="hidden desktop:block border-t border-white/[0.06]">
         {features.map((feat, i) => {
           const isReversed = i % 2 === 1;
-          // feature-02: 오른쪽 파란 블록 숨김 → left 정렬
           const desktopBgPos = feat.num === "02" ? "left center" : "center center";
-          return (
-            <div
+          const isTransport = feat.num === "04";
+          return isTransport ? (
+              /* ── 04 교통 편의: 입지 스타일 풀-레이아웃 ── */
+              <div key={feat.num} className="feat-row border-b border-white/[0.06]">
+                {/* 헤더 */}
+                <div className="flex items-start justify-between px-6 desktop:px-16 pt-12 pb-8">
+                  <div>
+                    <span
+                      className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase mb-3 block"
+                      style={{ fontFamily: "var(--font-secondary)" }}
+                    >
+                      {feat.subtitle}
+                    </span>
+                    <h3 className="text-[38px] desktop:text-[52px] font-bold text-white tracking-[-2px]">
+                      {feat.title}
+                    </h3>
+                  </div>
+                  {/* 뱃지 */}
+                  <div className="border border-[var(--brand-gold)]/40 px-5 py-3 text-center shrink-0">
+                    <span
+                      className="text-[40px] font-bold text-[var(--brand-gold)] leading-none block"
+                      style={{ fontFamily: "var(--font-secondary)" }}
+                    >
+                      3분
+                    </span>
+                    <p className="text-[11px] text-white/55 leading-snug mt-1">
+                      지하철 2호선<br />예정역 도보
+                    </p>
+                  </div>
+                </div>
+
+                {/* 본문: 이미지(좌) + 정보(우) */}
+                <div className="feat-text flex flex-col desktop:flex-row px-6 desktop:px-16 pb-14 gap-8">
+                  {/* 지도 이미지 */}
+                  <div
+                    className="feat-img-wrap relative w-full desktop:w-[57%] shrink-0 cursor-zoom-in group"
+                    onClick={() => { setLightboxSrc(feat.image); setLightboxOpen(true); }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={feat.image}
+                      alt="교통 안내 지도"
+                      className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.02]"
+                      style={{ display: "block" }}
+                    />
+                    <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5">
+                      <span className="text-[10px] text-white/70 tracking-[2px] uppercase" style={{ fontFamily: "var(--font-secondary)" }}>
+                        TRANSPORT MAP
+                      </span>
+                    </div>
+                    {/* 확대 힌트 */}
+                    <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-2.5 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <span className="text-[10px] text-white/70">🔍 클릭하여 확대</span>
+                    </div>
+                  </div>
+
+                  {/* 정보 패널 */}
+                  <div className="w-full desktop:w-[43%] space-y-8">
+                    {/* 교통 접근성 카드 */}
+                    <div>
+                      <p className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-4" style={{ fontFamily: "var(--font-secondary)" }}>
+                        교통 접근성
+                      </p>
+                      <div className="grid grid-cols-2 gap-2">
+                        {[
+                          { label: "지하철2호선 예정역", value: "도보 3분" },
+                          { label: "서울대로", value: "단지 바로 인접" },
+                          { label: "제2순환도로", value: "차량 5분" },
+                          { label: "광주 시청", value: "차량 15분" },
+                        ].map((card, ci) => (
+                          <div key={ci} className="border border-white/[0.1] bg-white/[0.03] px-4 py-3">
+                            <p className="text-[11px] text-white/45 mb-1.5">{card.label}</p>
+                            <p className="text-[17px] font-bold text-white tracking-[-0.5px]">{card.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 광역 접근 */}
+                    <div>
+                      <p className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-4" style={{ fontFamily: "var(--font-secondary)" }}>
+                        광역 접근
+                      </p>
+                      <ul className="space-y-2.5">
+                        {[
+                          "나주혁신도시까지 약 20분",
+                          "화순군까지 약 20분",
+                          "전남도청 인접",
+                          "효덕 IC 인근",
+                        ].map((item, ii) => (
+                          <li key={ii} className="flex items-center gap-3 text-[14px] text-white/70">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-gold)] shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* 버스 */}
+                    <div>
+                      <p className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-2" style={{ fontFamily: "var(--font-secondary)" }}>
+                        버스
+                      </p>
+                      <p className="text-[12px] text-white/40 mb-3">도보 5분 거리 버스정류장 4개소 · 총 18개 노선</p>
+                      <ul className="space-y-2.5">
+                        {[
+                          "진월 07 — 송암공단 ~ 살레시오고",
+                          "일곡 28 — 매월동 ~ 살레시오고",
+                          "수완 03 — 청단 폭스존 ~ 송원대",
+                        ].map((item, ii) => (
+                          <li key={ii} className="flex items-center gap-3 text-[14px] text-white/70">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-gold)] shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* 지하철 2호선 */}
+                    <div>
+                      <p className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-4" style={{ fontFamily: "var(--font-secondary)" }}>
+                        지하철 2호선
+                      </p>
+                      <ul className="space-y-2.5">
+                        {[
+                          { text: "1단계 — 시청 ~ 백운광장 ~ 광주역 ('26년 예정)", highlight: false },
+                          { text: "2단계 — 광주역 ~ 첨단 ~ 광주시청 ('29년 예정)", highlight: false },
+                          { text: "3단계 — 백운광장 ~ 진월 ~ 효천역 (예비타당성 검토중)", highlight: true },
+                        ].map((item, ii) => (
+                          <li key={ii} className={`flex items-center gap-3 text-[14px] ${item.highlight ? "text-[var(--brand-gold)]" : "text-white/70"}`}>
+                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.highlight ? "bg-[var(--brand-gold)]" : "bg-white/30"}`} />
+                            {item.text}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <p className="text-[10px] text-white/25 leading-relaxed">
+                      * 출처: 네이버지도, 광주광역시버스운행정보, 광주광역시청
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div
               key={feat.num}
               className={`feat-row flex desktop:h-[520px] ${
                 isReversed ? "desktop:flex-row-reverse" : "desktop:flex-row"
               } border-b border-white/[0.06]`}
             >
               {/* Text panel */}
-              <div className="feat-text w-full desktop:w-[44%] flex flex-col justify-center px-6 py-7 desktop:px-16 desktop:py-20 overflow-hidden">
-                {/* 숫자 */}
+              <div className="feat-text w-full desktop:w-[44%] flex flex-col justify-center px-6 py-7 desktop:px-16 desktop:py-12 overflow-hidden">
                 <span
                   className="text-[88px] font-bold leading-none text-white/[0.07] select-none mb-3 block"
                   style={{ fontFamily: "var(--font-secondary)" }}
                 >
                   {feat.num}
                 </span>
-                {/* 콘텐츠 */}
                 <span
                   className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase mb-4 block"
                   style={{ fontFamily: "var(--font-secondary)" }}
@@ -216,7 +380,7 @@ export default function Features({ features: featureContent }: { features?: Feat
                 </p>
               </div>
 
-              {/* Image panel — 고정 높이(row h-[520px]) 덕분에 비율이 항상 일정 */}
+              {/* Image panel */}
               <div className="feat-img-wrap relative w-full desktop:w-[56%] overflow-hidden">
                 <div
                   className="absolute inset-0 bg-cover transition-transform duration-700 hover:scale-[1.04]"

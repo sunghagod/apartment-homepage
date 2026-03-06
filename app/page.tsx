@@ -21,9 +21,9 @@ export default async function Home() {
       <main>
         <Hero content={content?.hero} />
         <Features features={content?.features} />
-        <Location mapImageUrl={content?.location?.mapImageUrl} />
+        <Location mapImageUrl={content?.location?.mapImageUrl} schoolImageUrl={content?.location?.schoolImageUrl} />
         <Amenities />
-        <FloorPlan />
+        <FloorPlan floorPlans={content?.floorPlans} />
         <SiteMap sitemap={content?.sitemap} />
         <ReservationForm />
       </main>

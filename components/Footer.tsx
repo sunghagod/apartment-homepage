@@ -98,17 +98,25 @@ export default function Footer({ siteName }: { siteName?: string }) {
 
       {/* Copyright */}
       <div className="border-t border-white/[0.05] py-6 px-6">
-        <div className="max-w-[1320px] mx-auto flex flex-col gap-2">
-          <div className="flex flex-col tablet:flex-row justify-between items-start tablet:items-center gap-2">
+        <div className="max-w-[1320px] mx-auto flex flex-col gap-3">
+          <div className="space-y-1">
             <p className="text-[12px] font-light text-[var(--n-400)]">
-              &copy; {new Date().getFullYear()} {siteName || "Brand Apartment"}. All rights reserved.
+              시행 : 진월동지역주택조합 &nbsp;|&nbsp; 시공 : SGC E&amp;C
             </p>
-            <p className="text-[12px] font-light text-[var(--n-500)]">
-              본 사이트의 내용은 분양 관련 참고용이며, 실제 내용과 차이가 있을 수 있습니다.
+            <p className="text-[12px] font-light text-[var(--n-400)]">
+              사업명 : 진월 더리브 라포레 &nbsp;|&nbsp; 사업지위치 : 광주광역시 남구 진월동 산3번지 일원
+            </p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-[11px] font-light text-[var(--n-500)]">
+              * 본 홈페이지의 CG, 이미지컷은 소비자의 이해를 돕기 위해 제작된 것으로 실제와 다소 차이가 있을 수 있습니다.
+            </p>
+            <p className="text-[11px] font-light text-[var(--n-500)]">
+              * 본 홈페이지에 명시된 모든 개발계획은 관계기관 혹은 지자체의 사정에 의해 변경 또는 취소될 수 있습니다.
             </p>
           </div>
           <p className="text-[11px] font-light text-[var(--n-600)]">
-            본 사이트의 모든 콘텐츠, 디자인 및 코드는 저작권법의 보호를 받습니다. 무단 복제, 배포, 수정을 금지합니다.
+            &copy; {new Date().getFullYear()} {siteName || "Brand Apartment"}. All rights reserved.
           </p>
         </div>
       </div>

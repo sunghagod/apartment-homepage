@@ -24,9 +24,21 @@ interface SitemapSection {
   badges: string[];
 }
 
+interface FloorPlanContent {
+  id: string;
+  label: string;
+  name: string;
+  area: string;
+  rooms: string;
+  units: number;
+  description: string;
+  features: string[];
+  imageUrl: string;
+}
+
 interface Content {
   site: { name: string };
-  location?: { mapImageUrl: string };
+  location?: { mapImageUrl: string; schoolImageUrl?: string };
   hero: {
     imageUrl: string;
     eyebrow: string;
@@ -39,6 +51,7 @@ interface Content {
     location: SitemapSection;
     layout: SitemapSection;
   };
+  floorPlans?: FloorPlanContent[];
 }
 
 // ── 서브 컴포넌트 ──────────────────────────────────────────────────────────────
@@ -212,6 +225,109 @@ function ImageUploadCard({ slot, currentUrl, onUploaded }: {
   );
 }
 
+// ── 평면도 전용 이미지 업로드 카드 (object-contain + 흰 배경) ──────────────────
+function FloorPlanImageCard({ slot, currentUrl, onUploaded }: {
+  slot: string;
+  currentUrl: string;
+  onUploaded: (url: string) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(currentUrl);
+
+  useEffect(() => {
+    setPreviewUrl(currentUrl);
+  }, [currentUrl]);
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const localUrl = URL.createObjectURL(file);
+    setPreviewUrl(localUrl);
+    setUploading(true);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      form.append("slot", slot);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: form });
+      if (!res.ok) throw new Error("업로드 실패");
+      const { url } = await res.json();
+      setPreviewUrl(url);
+      onUploaded(url);
+    } catch (err) {
+      console.error(err);
+      setPreviewUrl(currentUrl);
+      alert("이미지 업로드에 실패했습니다.");
+    } finally {
+      setUploading(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
+  }
+
+  return (
+    <div className="relative">
+      <div
+        className="relative w-full aspect-[4/3] bg-white border border-white/[0.1] overflow-hidden flex items-center justify-center cursor-pointer group"
+        onClick={() => inputRef.current?.click()}
+      >
+        {previewUrl ? (
+          <img
+            src={previewUrl}
+            alt="평면도 미리보기"
+            className="w-full h-full object-contain"
+          />
+        ) : (
+          <div className="text-center">
+            <svg className="mx-auto mb-2 opacity-40" width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect x="4" y="4" width="32" height="32" rx="2" stroke="#C8A870" strokeWidth="1.5" />
+              <rect x="10" y="10" width="8" height="6" stroke="#C8A870" strokeWidth="1.2" />
+              <rect x="22" y="10" width="8" height="6" stroke="#C8A870" strokeWidth="1.2" />
+              <rect x="10" y="22" width="20" height="8" stroke="#C8A870" strokeWidth="1.2" />
+            </svg>
+            <p className="text-[#888] text-[12px]">클릭하여 평면도 업로드</p>
+            <p className="text-[#aaa] text-[11px] mt-1">PNG / JPG (최대 20MB)</p>
+          </div>
+        )}
+
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <div className="bg-white/90 text-[#09090D] text-[13px] font-semibold px-4 py-2">
+            이미지 교체
+          </div>
+        </div>
+
+        {/* Uploading overlay */}
+        {uploading && (
+          <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-2">
+            <div className="w-6 h-6 border-2 border-[#C8A870] border-t-transparent rounded-full animate-spin" />
+            <span className="text-[#C8A870] text-[13px] font-medium">업로드 중...</span>
+          </div>
+        )}
+      </div>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        className="hidden"
+        onChange={handleFile}
+      />
+      {previewUrl && (
+        <p className="mt-1 text-[11px] text-white/30 truncate">{previewUrl.split("/").pop()}</p>
+      )}
+    </div>
+  );
+}
+
+// ── 기본 평형 데이터 (Cloudinary에 floorPlans 없을 때 초기값) ────────────────
+const DEFAULT_FLOOR_PLANS: FloorPlanContent[] = [
+  { id: "84A", label: "84㎡ A", name: "84A타입", area: "전용 84.8566㎡ / 공급 115.8340㎡", rooms: "방 4 / 욕실 2", units: 127, features: ["4Bay 판상형", "대형 드레스룸", "팬트리 수납"], description: "127세대 공급. 4Bay 판상형 설계로 채광과 통풍을 극대화한 대표 평형.", imageUrl: "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440059/apartment/floorplan-84A.png" },
+  { id: "84B", label: "84㎡ B", name: "84B타입", area: "전용 84.9777㎡ / 공급 115.6917㎡", rooms: "방 4 / 욕실 2", units: 52, features: ["최상층 특화", "알파룸", "거실 확장형"], description: "52세대 공급. 최상층 특화 설계가 적용된 프리미엄 타입.", imageUrl: "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440060/apartment/floorplan-84B.png" },
+  { id: "84C", label: "84㎡ C", name: "84C타입", area: "전용 84.9703㎡ / 공급 116.1917㎡", rooms: "방 4 / 욕실 2", units: 43, features: ["맞통풍 설계", "주방 팬트리", "드레스룸"], description: "43세대 공급. 맞통풍 설계로 사계절 내내 쾌적한 실내 환경.", imageUrl: "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440062/apartment/floorplan-84C.png" },
+  { id: "84D", label: "84㎡ D", name: "84D타입", area: "전용 84.9805㎡ / 공급 116.4486㎡", rooms: "방 3 / 욕실 2", units: 30, features: ["와이드 거실", "오픈 주방", "복도 최소화"], description: "30세대 공급. 복도를 최소화한 개방감 있는 평면.", imageUrl: "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440064/apartment/floorplan-84D.png" },
+  { id: "115", label: "115㎡", name: "115타입", area: "전용 115.9641㎡ / 공급 143.9770㎡", rooms: "방 4 / 욕실 2", units: 8, features: ["8Bay 판상형", "초대형 드레스룸", "독립 서재"], description: "8세대 공급. 8Bay 판상형 구조의 프리미엄 중형 타입.", imageUrl: "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440065/apartment/floorplan-115.png" },
+  { id: "126", label: "126㎡", name: "126타입", area: "전용 126.7672㎡ / 공급 153.6182㎡", rooms: "방 4 / 욕실 2", units: 40, features: ["테라스 특화", "대형 팬트리", "WIC 드레스룸"], description: "40세대 공급. 단지 최대 평형 테라스 특화 설계 타입.", imageUrl: "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440066/apartment/floorplan-126.png" },
+];
+
 // ── 메인 페이지 ───────────────────────────────────────────────────────────────
 
 export default function DashboardPage() {
@@ -223,7 +339,12 @@ export default function DashboardPage() {
   useEffect(() => {
     fetch("/api/admin/content")
       .then((r) => r.json())
-      .then(setContent)
+      .then((data) => {
+        if (!data.floorPlans || data.floorPlans.length === 0) {
+          data.floorPlans = DEFAULT_FLOOR_PLANS;
+        }
+        setContent(data);
+      })
       .catch(() => alert("콘텐츠를 불러올 수 없습니다."));
   }, []);
 
@@ -287,6 +408,22 @@ export default function DashboardPage() {
     const badges = [...content.sitemap[tab].badges];
     badges[idx] = val;
     updateSitemap(tab, "badges", badges);
+  }
+
+  function updateFloorPlan(idx: number, key: keyof FloorPlanContent, val: string | number | string[]) {
+    if (!content?.floorPlans) return;
+    const floorPlans = [...content.floorPlans];
+    floorPlans[idx] = { ...floorPlans[idx], [key]: val };
+    setContent({ ...content, floorPlans });
+  }
+
+  function updateFloorPlanFeature(idx: number, fi: number, val: string) {
+    if (!content?.floorPlans) return;
+    const floorPlans = [...content.floorPlans];
+    const features = [...floorPlans[idx].features];
+    features[fi] = val;
+    floorPlans[idx] = { ...floorPlans[idx], features };
+    setContent({ ...content, floorPlans });
   }
 
   if (!content) {
@@ -502,6 +639,96 @@ export default function DashboardPage() {
             );
           })}
         </SectionCard>
+        {/* ── 섹션 4-1: 학군 섹션 이미지 ── */}
+        <SectionCard
+          title="학군 섹션 이미지"
+          onSave={() => saveContent("location")}
+          saving={savingSection === "location"}
+        >
+          <p className="text-[12px] text-white/30 -mt-2">홈페이지 &apos;우수한 학군 환경&apos; 섹션에 표시될 큰 배경 사진입니다.</p>
+          <ImageUploadCard
+            slot="school-section"
+            currentUrl={content.location?.schoolImageUrl ?? ""}
+            onUploaded={(url) =>
+              setContent({ ...content, location: { ...content.location, mapImageUrl: content.location?.mapImageUrl ?? "", schoolImageUrl: url } })
+            }
+          />
+        </SectionCard>
+
+        {/* ── 섹션 5: 평형 안내 ── */}
+        <SectionCard
+          title="평형 안내"
+          onSave={() => saveContent("floorPlans")}
+          saving={savingSection === "floorPlans"}
+        >
+          <p className="text-[12px] text-white/30 -mt-2">평면도 이미지를 클릭하여 교체하고 저장 버튼을 누르세요.</p>
+          <div className="grid grid-cols-1 gap-6">
+            {(content.floorPlans ?? []).map((plan, i) => (
+              <div key={plan.id} className="p-4 bg-[#09090D] border border-white/[0.06] space-y-4">
+                {/* 타입 헤더 */}
+                <div className="flex items-center justify-between">
+                  <p className="text-[11px] text-[#C8A870] font-semibold tracking-[2px] uppercase" style={{ fontFamily: "Manrope, sans-serif" }}>
+                    {plan.label}
+                  </p>
+                  <span className="text-[11px] text-white/30 font-light">{plan.units}세대</span>
+                </div>
+
+                {/* 평면도 이미지 업로드 */}
+                <FloorPlanImageCard
+                  slot={`floorplan-${plan.id}`}
+                  currentUrl={plan.imageUrl}
+                  onUploaded={(url) => updateFloorPlan(i, "imageUrl", url)}
+                />
+
+                  {/* name / units */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <Field label="타입명">
+                      <TextInput value={plan.name} onChange={(v) => updateFloorPlan(i, "name", v)} placeholder="84A타입" />
+                    </Field>
+                    <Field label="공급 세대수">
+                      <TextInput
+                        value={String(plan.units)}
+                        onChange={(v) => updateFloorPlan(i, "units", Number(v) || 0)}
+                        placeholder="0"
+                      />
+                    </Field>
+                  </div>
+
+                  {/* area / rooms */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <Field label="면적">
+                      <TextInput value={plan.area} onChange={(v) => updateFloorPlan(i, "area", v)} placeholder="전용 00㎡ / 공급 00㎡" />
+                    </Field>
+                    <Field label="구성">
+                      <TextInput value={plan.rooms} onChange={(v) => updateFloorPlan(i, "rooms", v)} placeholder="방 4 / 욕실 2" />
+                    </Field>
+                  </div>
+
+                  {/* description */}
+                  <Field label="설명">
+                    <TextArea value={plan.description} onChange={(v) => updateFloorPlan(i, "description", v)} rows={2} />
+                  </Field>
+
+                  {/* features */}
+                  <div>
+                    <label className="block text-[11px] text-white/40 mb-1.5 tracking-[0.5px] uppercase" style={{ fontFamily: "Manrope, sans-serif" }}>
+                      특장점 (3개)
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {(plan.features ?? ["", "", ""]).map((feat, fi) => (
+                        <TextInput
+                          key={fi}
+                          value={feat}
+                          onChange={(v) => updateFloorPlanFeature(i, fi, v)}
+                          placeholder={`특장점 ${fi + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </SectionCard>
       </main>
 
       {/* 토스트 */}

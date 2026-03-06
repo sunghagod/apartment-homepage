@@ -60,7 +60,8 @@
     }
   ],
   "location": {
-    "mapImageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772698792/apartment/transport-map.png"
+    "mapImageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772698792/apartment/transport-map.png",
+    "schoolImageUrl": ""
   },
   "sitemap": {
     "location": {
@@ -81,5 +82,73 @@
         "지하 주차 연결"
       ]
     }
-  }
+  },
+  "floorPlans": [
+    {
+      "id": "84A",
+      "label": "84㎡ A",
+      "name": "84A타입",
+      "area": "전용 84.8566㎡ / 공급 115.8340㎡",
+      "rooms": "방 4 / 욕실 2",
+      "units": 127,
+      "features": ["4Bay 판상형", "대형 드레스룸", "팬트리 수납"],
+      "description": "127세대 공급. 4Bay 판상형 설계로 채광과 통풍을 극대화한 대표 평형. 넉넉한 드레스룸과 팬트리로 수납 걱정 없는 쾌적한 주거 공간입니다.",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440059/apartment/floorplan-84A.png"
+    },
+    {
+      "id": "84B",
+      "label": "84㎡ B",
+      "name": "84B타입",
+      "area": "전용 84.9777㎡ / 공급 115.6917㎡",
+      "rooms": "방 4 / 욕실 2",
+      "units": 52,
+      "features": ["최상층 특화", "알파룸", "거실 확장형"],
+      "description": "52세대 공급. 최상층 특화 설계가 적용된 프리미엄 타입. 알파룸과 거실 확장으로 공간 활용도를 극대화한 맞춤형 평면입니다.",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440060/apartment/floorplan-84B.png"
+    },
+    {
+      "id": "84C",
+      "label": "84㎡ C",
+      "name": "84C타입",
+      "area": "전용 84.9703㎡ / 공급 116.1917㎡",
+      "rooms": "방 4 / 욕실 2",
+      "units": 43,
+      "features": ["맞통풍 설계", "주방 팬트리", "드레스룸"],
+      "description": "43세대 공급. 맞통풍 설계로 사계절 내내 쾌적한 실내 환경. 실용적인 주방 팬트리와 안방 드레스룸이 갖춰진 생활 특화 타입입니다.",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440062/apartment/floorplan-84C.png"
+    },
+    {
+      "id": "84D",
+      "label": "84㎡ D",
+      "name": "84D타입",
+      "area": "전용 84.9805㎡ / 공급 116.4486㎡",
+      "rooms": "방 3 / 욕실 2",
+      "units": 30,
+      "features": ["와이드 거실", "오픈 주방", "복도 최소화"],
+      "description": "30세대 공급. 복도를 최소화한 개방감 있는 평면. 와이드 거실과 오픈형 주방으로 넓고 환한 생활 공간을 제공하는 혁신 타입입니다.",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440064/apartment/floorplan-84D.png"
+    },
+    {
+      "id": "115",
+      "label": "115㎡",
+      "name": "115타입",
+      "area": "전용 115.9641㎡ / 공급 143.9770㎡",
+      "rooms": "방 4 / 욕실 2",
+      "units": 8,
+      "features": ["8Bay 판상형", "초대형 드레스룸", "독립 서재"],
+      "description": "8세대 공급. 넓은 전용면적에 8Bay 판상형 구조를 적용한 프리미엄 중형 타입. 독립 서재와 초대형 드레스룸으로 품격 있는 라이프스타일을 실현합니다.",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440065/apartment/floorplan-115.png"
+    },
+    {
+      "id": "126",
+      "label": "126㎡",
+      "name": "126타입",
+      "area": "전용 126.7672㎡ / 공급 153.6182㎡",
+      "rooms": "방 4 / 욕실 2",
+      "units": 40,
+      "features": ["테라스 특화", "대형 팬트리", "WIC 드레스룸"],
+      "description": "40세대 공급. 단지 최대 평형. 테라스 특화 설계와 WIC 드레스룸이 적용된 최고급 타입으로, 넓은 면적과 풍부한 수납으로 최상의 주거 품격을 완성합니다.",
+      "imageUrl": "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772440066/apartment/floorplan-126.png"
+    }
+  ]
 }
