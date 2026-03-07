@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "이용약관 | 아파트 브랜드",
+  title: "이용약관 | 진월 더리브 라포레",
   description: "서비스 이용약관 안내 페이지입니다.",
 };
 

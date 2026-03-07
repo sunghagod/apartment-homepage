@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "개인정보처리방침 | 아파트 브랜드",
+  title: "개인정보처리방침 | 진월 더리브 라포레",
   description: "개인정보처리방침 안내 페이지입니다.",
 };
 
@@ -199,7 +199,7 @@ export default function PrivacyPage() {
               <li>처리정지 요구</li>
             </ul>
             <p className="mt-3">
-              위 권리 행사는 대표전화(1588-0000) 또는 이메일을 통해 하실 수 있으며,
+              위 권리 행사는 이메일(sunghagod@gmail.com)을 통해 하실 수 있으며,
               회사는 이에 대해 지체 없이 조치하겠습니다.
             </p>
           </section>
@@ -262,9 +262,9 @@ export default function PrivacyPage() {
                   개인정보 보호책임자
                 </strong>
               </p>
-              <p className="mt-1">성명: (담당자명)</p>
-              <p>직위: (직위)</p>
-              <p>연락처: 1588-0000</p>
+              <p className="mt-1">성명: 김성하</p>
+              <p>직위: 대표</p>
+              <p>연락처: sunghagod@gmail.com</p>
             </div>
             <p className="mt-3 text-sm text-gray-500">
               개인정보 침해에 대한 신고나 상담이 필요하신 경우 아래 기관에

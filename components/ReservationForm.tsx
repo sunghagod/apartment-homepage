@@ -414,8 +414,8 @@ export default function ReservationForm() {
                                   보유 기간
                                 </td>
                                 <td className="py-2">
-                                  동의 철회 시까지 (철회 요청: 대표전화
-                                  1588-0000)
+                                  동의 철회 시까지 (철회 요청:
+                                  sunghagod@gmail.com)
                                 </td>
                               </tr>
                               <tr>
@@ -423,8 +423,8 @@ export default function ReservationForm() {
                                   거부 권리
                                 </td>
                                 <td className="py-2">
-                                  동의 철회는 대표전화(1588-0000)로 요청하실 수
-                                  있습니다.
+                                  동의 철회는 이메일(sunghagod@gmail.com)로
+                                  요청하실 수 있습니다.
                                 </td>
                               </tr>
                             </tbody>
