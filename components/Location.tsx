@@ -54,6 +54,7 @@ export default function Location({
   const MAP_IMAGE_URL = mapImageUrl || DEFAULT_MAP_URL;
   const sectionRef = useRef<HTMLElement>(null);
   const [lightbox, setLightbox] = useState(false);
+  const [schoolLightbox, setSchoolLightbox] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -226,7 +227,7 @@ export default function Location({
 
             {/* 큰 사진 + 텍스트 오버레이 */}
             <div className="w-full desktop:w-[55%]">
-              <div className="relative w-full aspect-[4/3] desktop:aspect-auto desktop:h-full min-h-[320px] bg-[var(--brand-surface)] border border-white/[0.08] overflow-hidden">
+              <div className="relative w-full aspect-[4/3] desktop:aspect-auto desktop:h-full min-h-[320px] bg-[var(--brand-surface)] border border-white/[0.08] overflow-hidden group/school">
                 {schoolImageUrl ? (
                   <img
                     src={schoolImageUrl}
@@ -241,7 +242,7 @@ export default function Location({
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
 
                 {/* 텍스트 오버레이 */}
-                <div className="absolute inset-0 z-10 p-7 desktop:p-10 flex flex-col justify-end">
+                <div className="absolute inset-0 p-7 desktop:p-10 flex flex-col justify-end">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="h-px w-8 bg-[var(--brand-gold)]" />
                     <span
@@ -265,6 +266,28 @@ export default function Location({
                   <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-white/20 text-[13px] font-light">관리자 페이지에서 학군 사진을 등록하세요</p>
                   </div>
+                )}
+
+                {/* 클릭 전용 최상단 레이어 — 모든 요소 위에서 클릭/터치 수신 */}
+                {schoolImageUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setSchoolLightbox(true)}
+                    className="absolute inset-0 z-20 cursor-zoom-in bg-transparent"
+                    aria-label="학군 환경 이미지 확대"
+                  >
+                    {/* 호버 줌 힌트 */}
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/school:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                          <circle cx="12" cy="12" r="7.5" stroke="white" strokeWidth="2" />
+                          <line x1="18" y1="18" x2="25" y2="25" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                          <line x1="9" y1="12" x2="15" y2="12" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                          <line x1="12" y1="9" x2="12" y2="15" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
                 )}
               </div>
             </div>
@@ -314,6 +337,13 @@ export default function Location({
         src={MAP_IMAGE_URL}
         alt="진월 더리브 라포레 입지 지도"
         onClose={() => setLightbox(false)}
+      />
+    )}
+    {schoolLightbox && (
+      <ImageLightbox
+        src={schoolImageUrl || ""}
+        alt="학군 환경"
+        onClose={() => setSchoolLightbox(false)}
       />
     )}
   </>
