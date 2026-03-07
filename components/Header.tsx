@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Header({ siteName }: { siteName?: string }) {
   const [scrolled, setScrolled] = useState(false);
@@ -36,14 +37,16 @@ export default function Header({ siteName }: { siteName?: string }) {
         {/* Logo */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-1"
+          className="flex items-center"
         >
-          <span
-            className="text-[17px] font-bold text-white tracking-[-0.5px]"
-            style={{ fontFamily: "var(--font-secondary)" }}
-          >
-            {siteName || "BRAND APARTMENT"}
-          </span>
+          <Image
+            src="/logo-white.svg"
+            alt={siteName || "더리브 라포레"}
+            width={140}
+            height={40}
+            className="h-8 w-auto"
+            priority
+          />
         </button>
 
         {/* Desktop nav */}

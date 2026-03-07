@@ -1,15 +1,18 @@
+import Image from "next/image";
+
 export default function Footer({ siteName }: { siteName?: string }) {
   return (
     <footer className="bg-[var(--brand-bg)] border-t border-white/[0.06]">
       {/* Brand name strip */}
       <div className="border-b border-white/[0.06] py-10 px-6">
         <div className="max-w-[1320px] mx-auto flex items-center justify-between flex-wrap gap-4">
-          <span
-            className="text-[22px] font-bold text-white tracking-[-0.5px]"
-            style={{ fontFamily: "var(--font-secondary)" }}
-          >
-            {siteName || "BRAND APARTMENT"}
-          </span>
+          <Image
+            src="/logo-white.svg"
+            alt={siteName || "더리브 라포레"}
+            width={180}
+            height={50}
+            className="h-10 w-auto"
+          />
           <div className="flex items-center gap-2">
             <div className="h-px w-8 bg-[var(--brand-gold)]/40" />
             <span

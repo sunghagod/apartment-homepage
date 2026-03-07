@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   description:
     "광주광역시 남구 진월동, 전용 84~126㎡ 총 300세대. 4Bay 판상형 설계의 프리미엄 주거공간 진월 더리브 라포레. 방문상담 예약 접수 중.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
   },
   openGraph: {
     title: "진월 더리브 라포레 | 광주 남구 진월동 300세대 프리미엄 아파트",
