@@ -23,9 +23,9 @@ export default function Hero({ content }: { content?: HeroContent }) {
     content?.description ||
     "도심 속 자연과 함께하는 품격 있는 주거 공간.\n당신의 라이프스타일에 맞춘 프리미엄 설계.";
   const stats = content?.stats || [
-    { val: "59–84", unit: "㎡", label: "전용 평형" },
-    { val: "3", unit: "개 타입", label: "평면 구성" },
-    { val: "2026", unit: "년", label: "입주 예정" },
+    { val: "84–126", unit: "㎡", label: "전용 평형" },
+    { val: "6", unit: "개 타입", label: "평면 구성" },
+    { val: "300", unit: "세대", label: "총 공급" },
   ];
 
   useEffect(() => {
@@ -74,14 +74,14 @@ export default function Hero({ content }: { content?: HeroContent }) {
           src={bgImage}
           alt=""
           fill
-          className="object-cover object-[55%_center]"
+          className="object-cover object-[60%_20%] tablet:object-[55%_center]"
           priority
           unoptimized
         />
       </div>
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--brand-bg)] via-[var(--brand-bg)]/65 to-[var(--brand-bg)]/20" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-bg)]/80 via-[var(--brand-bg)]/30 to-transparent" />
+      {/* Gradient overlays — 모바일: 상단은 투명하게 유지하여 건물 사진 노출 */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--brand-bg)] via-[var(--brand-bg)]/50 to-transparent desktop:via-[var(--brand-bg)]/65 desktop:to-[var(--brand-bg)]/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--brand-bg)]/60 via-transparent to-transparent desktop:from-[var(--brand-bg)]/80 desktop:via-[var(--brand-bg)]/30" />
 
       {/* Content */}
       <div className="relative z-10 max-w-[1320px] mx-auto px-6 w-full pt-24 pb-12 desktop:pt-0 desktop:pb-24">
@@ -93,7 +93,7 @@ export default function Hero({ content }: { content?: HeroContent }) {
               className="text-[11px] font-medium text-white/90 tracking-[1px]"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
-              신규 분양 · 청약 예정
+              진월 더리브 라포레 · 청약 접수중
             </span>
           </div>
         </div>

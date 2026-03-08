@@ -65,10 +65,10 @@ export default function FloatingCTA() {
           {/* Text */}
           <div className="text-left">
             <p className="text-[10px] desktop:text-[11px] font-semibold tracking-[2px] uppercase opacity-60 leading-none mb-1">
-              무료 방문상담
+              방문상담
             </p>
             <p className="text-[13px] desktop:text-[15px] font-bold tracking-[-0.2px] leading-none whitespace-nowrap text-white">
-              예약하기
+              예약하기 →
             </p>
           </div>
 

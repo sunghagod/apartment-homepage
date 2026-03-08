@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 const SCHEDULE = [
   { label: "특별공급", date: "2026.02.21", status: "done" },
-  { label: "1순위 청약", date: "2026.03.05", status: "urgent" },
-  { label: "2순위 청약", date: "2026.03.06", status: "upcoming" },
-  { label: "당첨자 발표", date: "2026.03 중", status: "upcoming" },
+  { label: "1순위 청약", date: "2026.03.05", status: "done" },
+  { label: "2순위 청약", date: "2026.03.06", status: "done" },
+  { label: "당첨자 발표", date: "2026.03 중", status: "urgent" },
   { label: "계약", date: "2026.03 중", status: "upcoming" },
   { label: "입주 예정", date: "2026 하반기", status: "upcoming" },
 ];
@@ -73,13 +73,8 @@ export default function Pricing() {
   const [dDay, setDDay] = useState<number | null>(null);
 
   useEffect(() => {
-    const target = new Date(2026, 2, 5); // 2026-03-05
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const diff = Math.ceil(
-      (target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-    );
-    setDDay(diff);
+    // 청약 완료 — D-day 배지 비활성
+    setDDay(-1);
   }, []);
 
   useEffect(() => {
@@ -465,7 +460,7 @@ export default function Pricing() {
             className="bg-[var(--brand-gold)] text-[var(--brand-bg)] text-[14px] font-semibold px-8 py-4 tracking-[0.3px] uppercase hover:bg-[var(--brand-gold-lt)] active:scale-[0.98] transition-all duration-300 shrink-0"
             style={{ fontFamily: "var(--font-secondary)" }}
           >
-            분양 상담 예약하기
+            방문상담 예약하기
           </button>
         </div>
       </div>

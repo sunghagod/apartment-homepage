@@ -39,7 +39,7 @@ export default function Footer({ siteName }: { siteName?: string }) {
             <div className="space-y-2 text-[14px] font-light text-[var(--n-400)] leading-relaxed">
               <p>광주광역시 남구 진월동</p>
               <p>이메일: sunghagod@gmail.com</p>
-              <p>시행: SGC E&amp;C(주) / 시공: THE LIV</p>
+              <p>시행: 진월동지역주택조합 / 시공: SGC E&amp;C</p>
             </div>
           </div>
 

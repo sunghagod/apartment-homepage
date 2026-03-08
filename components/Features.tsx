@@ -86,6 +86,17 @@ export default function Features({ features: featureContent }: { features?: Feat
         duration: 0.9,
       });
 
+      // Mobile card animations
+      sectionRef.current.querySelectorAll(".feat-card-mobile").forEach((card) => {
+        gsap.from(card, {
+          scrollTrigger: { trigger: card, start: "top 88%" },
+          opacity: 0,
+          y: 30,
+          duration: 0.7,
+          ease: "power2.out",
+        });
+      });
+
       // Per-row animations
       sectionRef.current.querySelectorAll(".feat-row").forEach((row) => {
         gsap.from(row.querySelector(".feat-text"), {
@@ -146,60 +157,176 @@ export default function Features({ features: featureContent }: { features?: Feat
         </h2>
       </div>
 
-      {/* Mobile: horizontal scroll cards */}
-      <div
-        className="desktop:hidden flex items-start gap-3 overflow-x-auto px-6 pb-8 pt-2 snap-x snap-mandatory"
-        style={{ scrollbarWidth: "none" }}
-      >
+      {/* Mobile: vertical full-width cards */}
+      <div className="desktop:hidden px-4 tablet:px-6 pb-8 space-y-4">
         {features.map((feat) => {
-          // feature-02: 오른쪽 파란 블록 숨김 → left 정렬
-          // feature-03: 두 장면 와이드 이미지 → top 기준으로 잘라서 표시
           const mobileBgPos =
             feat.num === "02" ? "left center" :
             feat.num === "03" ? "center top" : "center";
-          return (
-          <div
-            key={feat.num}
-            className="relative flex-none w-[72vw] max-w-[280px] aspect-[3/4] snap-start overflow-hidden bg-[var(--brand-surface)] rounded-sm"
-          >
-            {/* Background image */}
-            <div
-              className="absolute inset-0 bg-cover"
-              style={{ backgroundImage: `url('${feat.image}')`, backgroundPosition: mobileBgPos }}
-            />
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
-            {/* Content */}
-            <div className="absolute inset-0 p-5 flex flex-col justify-between">
-              <div className="flex items-center gap-2">
-                <div className="h-px w-5 bg-[var(--brand-gold)]" />
-                <span
-                  className="text-[9px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                >
-                  {feat.subtitle}
-                </span>
+          const isTransport = feat.num === "04";
+
+          return isTransport ? (
+            /* ── 04 교통 편의: 모바일 전용 상세 레이아웃 ── */
+            <div key={feat.num} className="feat-card-mobile border border-white/[0.06] bg-[var(--brand-surface)]">
+              {/* 헤더 */}
+              <div className="flex items-start justify-between px-5 pt-6 pb-4">
+                <div>
+                  <span
+                    className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase mb-2 block"
+                    style={{ fontFamily: "var(--font-secondary)" }}
+                  >
+                    {feat.subtitle}
+                  </span>
+                  <h3 className="text-[24px] font-bold text-white tracking-[-1px]">
+                    {feat.title}
+                  </h3>
+                </div>
+                <div className="border border-[var(--brand-gold)]/40 px-3 py-2 text-center shrink-0">
+                  <span
+                    className="text-[24px] font-bold text-[var(--brand-gold)] leading-none block"
+                    style={{ fontFamily: "var(--font-secondary)" }}
+                  >
+                    3분
+                  </span>
+                  <p className="text-[9px] text-white/55 leading-snug mt-0.5">
+                    2호선 예정역
+                  </p>
+                </div>
               </div>
-              <div>
-                <span
-                  className="text-[52px] font-bold text-white/8 leading-none block -mb-1"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                >
-                  {feat.num}
-                </span>
-                <h3 className="text-[20px] font-bold text-white tracking-[-0.5px] mb-2">
+
+              {/* 지도 이미지 */}
+              <div
+                className="relative mx-4 mb-4 cursor-zoom-in"
+                onClick={() => { setLightboxSrc(feat.image); setLightboxOpen(true); }}
+              >
+                <img
+                  src={feat.image}
+                  alt="교통 안내 지도"
+                  className="w-full h-auto block"
+                />
+                <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-1">
+                  <span className="text-[9px] text-white/70 tracking-[2px] uppercase" style={{ fontFamily: "var(--font-secondary)" }}>
+                    TRANSPORT MAP
+                  </span>
+                </div>
+                <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1">
+                  <span className="text-[9px] text-white/60">탭하여 확대</span>
+                </div>
+              </div>
+
+              {/* 교통 접근성 그리드 */}
+              <div className="px-5 pb-5 space-y-5">
+                <div className="grid grid-cols-2 gap-1.5">
+                  {[
+                    { label: "지하철2호선 예정역", value: "도보 3분", key: true },
+                    { label: "서울대로", value: "단지 인접", key: false },
+                    { label: "제2순환도로", value: "차량 5분", key: false },
+                    { label: "광주 시청", value: "차량 15분", key: false },
+                  ].map((card, ci) => (
+                    <div key={ci} className={`px-3 py-2.5 border ${card.key ? "border-[var(--brand-gold)]/40 bg-[var(--brand-gold)]/[0.06]" : "border-white/[0.08] bg-white/[0.02]"}`}>
+                      <p className={`text-[10px] mb-1 ${card.key ? "text-[var(--brand-gold)]" : "text-white/40"}`}>{card.label}</p>
+                      <p className="text-[15px] font-bold text-white tracking-[-0.3px]">{card.value}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* 광역 접근 + 버스 */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-[9px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-2" style={{ fontFamily: "var(--font-secondary)" }}>
+                      광역 접근
+                    </p>
+                    <ul className="space-y-1.5">
+                      {["나주혁신도시 약 20분", "화순군 약 20분", "전남도청 인접", "효덕 IC 인근"].map((item, ii) => (
+                        <li key={ii} className="flex items-start gap-2 text-[12px] text-white/65 leading-snug">
+                          <span className="w-1 h-1 rounded-full bg-[var(--brand-gold)] shrink-0 mt-1.5" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-[9px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-2" style={{ fontFamily: "var(--font-secondary)" }}>
+                      버스 노선
+                    </p>
+                    <p className="text-[11px] text-white/35 mb-1.5">정류장 4개소 · 18개 노선</p>
+                    <ul className="space-y-1.5">
+                      {["진월 07", "일곡 28", "수완 03"].map((item, ii) => (
+                        <li key={ii} className="flex items-start gap-2 text-[12px] text-white/65 leading-snug">
+                          <span className="w-1 h-1 rounded-full bg-[var(--brand-gold)] shrink-0 mt-1.5" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* 2호선 노선 계획 */}
+                <div>
+                  <p className="text-[9px] font-medium text-[var(--brand-gold)] tracking-[2px] uppercase mb-2" style={{ fontFamily: "var(--font-secondary)" }}>
+                    지하철 2호선 노선 계획
+                  </p>
+                  <div className="space-y-1.5">
+                    {[
+                      { text: "1단계 — 시청~백운광장~광주역 ('26년)", hl: false },
+                      { text: "2단계 — 광주역~첨단~시청 ('29년)", hl: false },
+                      { text: "3단계 — 백운광장~진월~효천역", hl: true },
+                    ].map((item, ii) => (
+                      <p key={ii} className={`text-[12px] flex items-start gap-2 leading-snug ${item.hl ? "text-[var(--brand-gold)] font-medium" : "text-white/60"}`}>
+                        <span className={`w-1 h-1 rounded-full shrink-0 mt-1.5 ${item.hl ? "bg-[var(--brand-gold)]" : "bg-white/30"}`} />
+                        {item.text}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+
+                <p className="text-[9px] text-white/20">
+                  * 광주도시철도 2호선은 기본계획 수립 단계이며, 관계기관 사정에 따라 변경·취소될 수 있습니다.
+                </p>
+              </div>
+            </div>
+          ) : (
+            /* ── 01~03 일반 카드: 풀폭 이미지 + 텍스트 ── */
+            <div key={feat.num} className="feat-card-mobile border border-white/[0.06] overflow-hidden bg-[var(--brand-surface)]">
+              {/* 이미지 영역 */}
+              <div className="relative aspect-[16/9] overflow-hidden">
+                <div
+                  className="absolute inset-0 bg-cover"
+                  style={{ backgroundImage: `url('${feat.image}')`, backgroundPosition: mobileBgPos }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
+                {/* 번호 뱃지 */}
+                <div className="absolute top-4 left-4 flex items-center gap-2">
+                  <span
+                    className="text-[10px] font-medium text-[var(--brand-gold)] tracking-[3px] uppercase"
+                    style={{ fontFamily: "var(--font-secondary)" }}
+                  >
+                    {feat.subtitle}
+                  </span>
+                </div>
+                <div className="absolute bottom-4 left-4">
+                  <span
+                    className="text-[44px] font-bold text-white/10 leading-none"
+                    style={{ fontFamily: "var(--font-secondary)" }}
+                  >
+                    {feat.num}
+                  </span>
+                </div>
+              </div>
+
+              {/* 텍스트 영역 */}
+              <div className="px-5 py-5">
+                <h3 className="text-[20px] font-bold text-white tracking-[-0.5px] mb-2.5">
                   {feat.title}
                 </h3>
-                <p className="text-[13px] font-normal text-white/80 leading-relaxed line-clamp-4">
+                <div className="w-6 h-px bg-[var(--brand-gold)] mb-3" />
+                <p className="text-[13px] font-normal text-white/70 leading-relaxed">
                   {feat.description}
                 </p>
               </div>
             </div>
-          </div>
           );
         })}
-        {/* trailing spacer */}
-        <div className="flex-none w-3" />
       </div>
 
       {/* Desktop: alternating rows */}

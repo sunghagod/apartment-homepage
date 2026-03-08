@@ -22,12 +22,12 @@ export default function Header({ siteName }: { siteName?: string }) {
     { label: "단지소개", id: "features" },
     { label: "입지안내", id: "location" },
     { label: "커뮤니티", id: "amenities" },
-{ label: "평형안내", id: "floorplan" },
+    { label: "평형안내", id: "floorplan" },
   ];
 
   return (
     <header
-      className={`fixed top-0 w-full h-20 z-50 transition-all duration-500 ${
+      className={`fixed top-0 w-full h-14 tablet:h-20 z-50 transition-all duration-500 ${
         scrolled
           ? "bg-[var(--brand-bg)]/90 backdrop-blur-md border-b border-white/[0.07]"
           : "bg-transparent"
@@ -44,7 +44,7 @@ export default function Header({ siteName }: { siteName?: string }) {
             alt={siteName || "더리브 라포레"}
             width={140}
             height={40}
-            className="h-8 w-auto"
+            className="h-6 tablet:h-8 w-auto"
             priority
           />
         </button>
@@ -65,7 +65,7 @@ export default function Header({ siteName }: { siteName?: string }) {
             className="text-[13px] font-medium px-5 py-2.5 border border-[var(--brand-gold)] text-[var(--brand-gold)] tracking-[0.3px] uppercase hover:bg-[var(--brand-gold)] hover:text-[var(--brand-bg)] transition-all duration-300"
             style={{ fontFamily: "var(--font-secondary)" }}
           >
-            예약하기
+            상담 예약
           </button>
         </nav>
 
@@ -109,7 +109,7 @@ export default function Header({ siteName }: { siteName?: string }) {
               onClick={() => goto("reservation")}
               className="text-left text-base font-medium text-[var(--brand-gold)] py-4 hover:text-[var(--brand-gold-lt)] transition-colors"
             >
-              상담 예약하기
+              방문상담 예약하기
             </button>
           </nav>
         </div>
