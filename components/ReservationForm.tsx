@@ -48,7 +48,7 @@ function getTodayString(): string {
   return `${year}-${month}-${day}`;
 }
 
-const PHONE_NUMBER = "";
+const PHONE_NUMBER = "062)381-3857";
 
 export default function ReservationForm() {
   const router = useRouter();
