@@ -6,20 +6,19 @@ import ImageLightbox from "@/components/ui/ImageLightbox";
 const DEFAULT_MAP_URL = "https://res.cloudinary.com/dtyvnypxw/image/upload/v1772698792/apartment/transport-map.png";
 
 const TRANSPORT = [
-  { label: "지하철 2호선 예정역", value: "도보 3분", key: true },
-  { label: "서울대로", value: "단지 바로 인접", key: false },
+  { label: "지하철 2호선 예정역", value: "단지 앞", key: true },
+  { label: "서문대로", value: "단지 바로 인접", key: false },
   { label: "제2순환도로", value: "차량 5분", key: false },
-  { label: "광주 시청", value: "차량 15분", key: false },
 ];
 
 const INFO_GROUPS = [
   {
     label: "광역 접근",
-    items: ["나주 KTX역 19km", "화순 14km", "전남도청 인접"],
+    items: ["나주 KTX역 19km", "화순 14km"],
   },
   {
     label: "학군",
-    items: ["진월초등학교 도보권", "봉선중·고등학교 인근", "봉선동 학원가"],
+    items: ["진월초등학교 도보권", "봉선중학교 인근", "봉선동 학원가"],
   },
   {
     label: "생활 편의",
@@ -96,12 +95,12 @@ export default function Location({
                 className="text-[28px] font-bold text-[var(--brand-gold)] leading-none"
                 style={{ fontFamily: "var(--font-secondary)" }}
               >
-                3분
+                단지 앞
               </span>
               <span className="text-white/68 text-[13px] font-normal leading-snug">
                 지하철 2호선
                 <br />
-                예정역 도보
+                예정역
               </span>
             </div>
           </div>
@@ -139,7 +138,7 @@ export default function Location({
               <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-black/75 backdrop-blur-sm border border-white/10 px-4 py-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-gold)]" />
                 <span className="text-[12px] font-light text-white">지하철 2호선 예정역</span>
-                <span className="text-[12px] font-semibold text-[var(--brand-gold)] ml-1">도보 3분</span>
+                <span className="text-[12px] font-semibold text-[var(--brand-gold)] ml-1">단지 앞</span>
               </div>
             </div>
           </div>

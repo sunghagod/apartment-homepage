@@ -186,7 +186,7 @@ export default function Features({ features: featureContent }: { features?: Feat
                     className="text-[24px] font-bold text-[var(--brand-gold)] leading-none block"
                     style={{ fontFamily: "var(--font-secondary)" }}
                   >
-                    3분
+                    단지 앞
                   </span>
                   <p className="text-[9px] text-white/55 leading-snug mt-0.5">
                     2호선 예정역
@@ -218,10 +218,9 @@ export default function Features({ features: featureContent }: { features?: Feat
               <div className="px-5 pb-5 space-y-5">
                 <div className="grid grid-cols-2 gap-1.5">
                   {[
-                    { label: "지하철2호선 예정역", value: "도보 3분", key: true },
-                    { label: "서울대로", value: "단지 인접", key: false },
+                    { label: "지하철2호선 예정역", value: "단지 앞", key: true },
+                    { label: "서문대로", value: "단지 인접", key: false },
                     { label: "제2순환도로", value: "차량 5분", key: false },
-                    { label: "광주 시청", value: "차량 15분", key: false },
                   ].map((card, ci) => (
                     <div key={ci} className={`px-3 py-2.5 border ${card.key ? "border-[var(--brand-gold)]/40 bg-[var(--brand-gold)]/[0.06]" : "border-white/[0.08] bg-white/[0.02]"}`}>
                       <p className={`text-[10px] mb-1 ${card.key ? "text-[var(--brand-gold)]" : "text-white/40"}`}>{card.label}</p>
@@ -237,7 +236,7 @@ export default function Features({ features: featureContent }: { features?: Feat
                       광역 접근
                     </p>
                     <ul className="space-y-1.5">
-                      {["나주혁신도시 약 20분", "화순군 약 20분", "전남도청 인접", "효덕 IC 인근"].map((item, ii) => (
+                      {["나주혁신도시 약 20분", "화순군 약 20분", "효덕 IC 인근"].map((item, ii) => (
                         <li key={ii} className="flex items-start gap-2 text-[12px] text-white/65 leading-snug">
                           <span className="w-1 h-1 rounded-full bg-[var(--brand-gold)] shrink-0 mt-1.5" />
                           {item}
@@ -357,10 +356,10 @@ export default function Features({ features: featureContent }: { features?: Feat
                       className="text-[40px] font-bold text-[var(--brand-gold)] leading-none block"
                       style={{ fontFamily: "var(--font-secondary)" }}
                     >
-                      3분
+                      단지 앞
                     </span>
                     <p className="text-[11px] text-white/55 leading-snug mt-1">
-                      지하철 2호선<br />예정역 도보
+                      지하철 2호선<br />예정역
                     </p>
                   </div>
                 </div>
@@ -399,10 +398,9 @@ export default function Features({ features: featureContent }: { features?: Feat
                       </p>
                       <div className="grid grid-cols-2 gap-2">
                         {[
-                          { label: "지하철2호선 예정역", value: "도보 3분" },
-                          { label: "서울대로", value: "단지 바로 인접" },
+                          { label: "지하철2호선 예정역", value: "단지 앞" },
+                          { label: "서문대로", value: "단지 바로 인접" },
                           { label: "제2순환도로", value: "차량 5분" },
-                          { label: "광주 시청", value: "차량 15분" },
                         ].map((card, ci) => (
                           <div key={ci} className="border border-white/[0.1] bg-white/[0.03] px-4 py-3">
                             <p className="text-[11px] text-white/45 mb-1.5">{card.label}</p>
@@ -421,7 +419,6 @@ export default function Features({ features: featureContent }: { features?: Feat
                         {[
                           "나주혁신도시까지 약 20분",
                           "화순군까지 약 20분",
-                          "전남도청 인접",
                           "효덕 IC 인근",
                         ].map((item, ii) => (
                           <li key={ii} className="flex items-center gap-3 text-[14px] text-white/70">

@@ -60,6 +60,13 @@ export default function Header({ siteName }: { siteName?: string }) {
               {item.label}
             </button>
           ))}
+          <a
+            href="tel:062)381-3857"
+            className="text-[13px] font-medium text-white/75 hover:text-[var(--brand-gold)] transition-colors duration-300 flex items-center gap-1.5"
+          >
+            <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 10.5c-.8-.8-1.8-1.3-2.8-1.3-.5 0-1 .1-1.4.4L8 10.9c-1.3-.7-2.5-1.9-3.2-3.2l1.3-1.3c.3-.3.4-.7.4-1.2 0-1-.5-2-1.3-2.7L4 1.8C3.6 1.4 3 1.2 2.5 1.2 1.7 1.2 1 1.5.6 2L.3 2.4C-.3 3-.4 4 .1 5.2c1.3 3.3 4.5 6.4 7.7 7.7.5.2 1 .3 1.5.3 1 0 1.8-.4 2.3-.9l.3-.3c.4-.4.6-1 .6-1.5 0-.5-.2-1-.6-1.4l-1.2-1.1z"/></svg>
+            062)381-3857
+          </a>
           <button
             onClick={() => goto("reservation")}
             className="text-[13px] font-medium px-5 py-2.5 border border-[var(--brand-gold)] text-[var(--brand-gold)] tracking-[0.3px] uppercase hover:bg-[var(--brand-gold)] hover:text-[var(--brand-bg)] transition-all duration-300"
@@ -105,6 +112,13 @@ export default function Header({ siteName }: { siteName?: string }) {
                 {item.label}
               </button>
             ))}
+            <a
+              href="tel:062)381-3857"
+              className="flex items-center gap-2 text-base font-medium text-white py-4 border-b border-white/[0.06]"
+            >
+              <svg className="w-4 h-4 text-[var(--brand-gold)]" viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 10.5c-.8-.8-1.8-1.3-2.8-1.3-.5 0-1 .1-1.4.4L8 10.9c-1.3-.7-2.5-1.9-3.2-3.2l1.3-1.3c.3-.3.4-.7.4-1.2 0-1-.5-2-1.3-2.7L4 1.8C3.6 1.4 3 1.2 2.5 1.2 1.7 1.2 1 1.5.6 2L.3 2.4C-.3 3-.4 4 .1 5.2c1.3 3.3 4.5 6.4 7.7 7.7.5.2 1 .3 1.5.3 1 0 1.8-.4 2.3-.9l.3-.3c.4-.4.6-1 .6-1.5 0-.5-.2-1-.6-1.4l-1.2-1.1z"/></svg>
+              062)381-3857
+            </a>
             <button
               onClick={() => goto("reservation")}
               className="text-left text-base font-medium text-[var(--brand-gold)] py-4 hover:text-[var(--brand-gold-lt)] transition-colors"

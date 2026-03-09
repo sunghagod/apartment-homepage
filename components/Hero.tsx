@@ -93,7 +93,7 @@ export default function Hero({ content }: { content?: HeroContent }) {
               className="text-[11px] font-medium text-white/90 tracking-[1px]"
               style={{ fontFamily: "var(--font-secondary)" }}
             >
-              진월 더리브 라포레 · 청약 접수중
+              진월 더리브 라포레
             </span>
           </div>
         </div>

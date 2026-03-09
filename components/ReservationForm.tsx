@@ -377,7 +377,7 @@ export default function ReservationForm() {
                   </svg>
                 </div>
                 <span className="block text-[10px] tablet:text-[11px] font-medium text-white/35 tracking-[1.5px] uppercase mb-1" style={{ fontFamily: "var(--font-secondary)" }}>Status</span>
-                <span className="text-[11px] tablet:text-[13px] font-light text-white/55 leading-tight">접수 완료</span>
+                <span className="text-[11px] tablet:text-[13px] font-light text-white/55 leading-tight">접수 중</span>
               </div>
               {/* 위치 */}
               <div className="bg-white/[0.05] border border-white/[0.08] p-3 tablet:p-4 desktop:p-5">

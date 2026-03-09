@@ -38,6 +38,11 @@ export default function Footer({ siteName }: { siteName?: string }) {
             </h4>
             <div className="space-y-2 text-[14px] font-light text-[var(--n-400)] leading-relaxed">
               <p>광주광역시 남구 진월동</p>
+              <p>
+                <a href="tel:062)381-3857" className="text-[var(--brand-gold)] font-medium hover:text-[var(--brand-gold-lt)] transition-colors">
+                  062)381-3857
+                </a>
+              </p>
               <p>이메일: sunghagod@gmail.com</p>
               <p>시행: 진월동지역주택조합 / 시공: SGC E&amp;C</p>
             </div>

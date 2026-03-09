@@ -5,19 +5,19 @@ import ImageLightbox from "@/components/ui/ImageLightbox";
 
 const DEFAULT_TABS = [
   {
-    id: "location",
-    label: "광역도",
-    subtitle: "LOCATION MAP",
-    description: "지하철역 도보 5분, 주요 간선도로 인접. 서울 전역으로의 빠른 접근이 가능한 탁월한 입지입니다.",
-    badges: ["지하철 도보 5분", "버스 정류장 1분", "IC 10분"],
-    imageUrl: "",
-  },
-  {
     id: "layout",
     label: "배치도",
     subtitle: "SITE PLAN",
     description: "남향 위주의 동 배치로 채광과 통풍을 극대화하였으며, 단지 내 녹지 공간을 풍부하게 확보하였습니다.",
     badges: ["남향 위주 배치", "중앙 녹지 광장", "지하 주차 연결"],
+    imageUrl: "",
+  },
+  {
+    id: "location",
+    label: "광역도",
+    subtitle: "LOCATION MAP",
+    description: "지하철역 도보 5분, 주요 간선도로 인접. 서울 전역으로의 빠른 접근이 가능한 탁월한 입지입니다.",
+    badges: ["지하철 도보 5분", "버스 정류장 1분", "IC 10분"],
     imageUrl: "",
   },
 ];
@@ -34,14 +34,14 @@ interface SitemapContent {
 }
 
 export default function SiteMap({ sitemap }: { sitemap?: SitemapContent }) {
-  const [activeTab, setActiveTab] = useState("location");
+  const [activeTab, setActiveTab] = useState("layout");
   const [lightbox, setLightbox] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   const tabs = sitemap
     ? [
-        { ...DEFAULT_TABS[0], ...sitemap.location },
-        { ...DEFAULT_TABS[1], ...sitemap.layout },
+        { ...DEFAULT_TABS[0], ...sitemap.layout },
+        { ...DEFAULT_TABS[1], ...sitemap.location },
       ]
     : DEFAULT_TABS;
 

@@ -34,8 +34,8 @@ const FACILITIES = [
     id: "park",
     title: "중앙 녹지 광장",
     subtitle: "GREEN PLAZA",
-    desc: "제석산 조망과 연결된 단지 중심 공원 및 산책로",
-    tags: ["제석산 조망"],
+    desc: "푸른길공원·제석 구름다리 산책로와 연결된 단지 중심 공원",
+    tags: ["푸른길공원", "구름다리 산책로"],
     image: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&q=80",
     featured: false,
   },
@@ -141,9 +141,9 @@ export default function Amenities() {
             <h2 className="text-[26px] tablet:text-[38px] desktop:text-[52px] font-bold text-white tracking-[-1.5px] desktop:tracking-[-2px] leading-[1.15]">
               입주민 전용<br className="tablet:hidden" /> 프리미엄 커뮤니티
             </h2>
-            <p className="text-[13px] tablet:text-[15px] font-light text-white/45 max-w-sm leading-relaxed desktop:text-right">
-              골프연습장부터 피트니스·녹지 광장까지,<br className="hidden desktop:block" />
-              입주민만을 위한 6가지 전용 시설
+            <p className="text-[13px] tablet:text-[15px] font-light text-white/45 max-w-md leading-relaxed desktop:text-right">
+              <span className="text-[#7ecba1] font-medium">푸른길공원</span>과 <span className="text-[#8bb8e8] font-medium">제석 구름다리 산책로</span>를 품은 단지,<br className="hidden desktop:block" />
+              골프연습장부터 피트니스·녹지 광장까지 입주민 전용 시설
             </p>
           </div>
         </div>
